@@ -1,0 +1,2 @@
+- This is my blog on Github Page.
+- It's powered by Hexo.
