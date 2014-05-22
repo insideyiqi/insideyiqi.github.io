@@ -1,2 +1,0 @@
-- This is my blog.
-- It's powered by hexo.
