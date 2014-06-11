@@ -143,75 +143,7 @@ app.listen(<span class="number">3000</span>);
 </pre></figure>
 
 
-
-    
-  </div>
-  <footer class="end-sep">
-    
-      
-      
-    
-    <div class="clearfix"></div>
-  </footer>
-</article>
-
-
-  
-    <article class="post">
-  <header>
-    
-      <div class="icon"></div>
-      <a href="/2014/05/19/new-post/">
-  <time datetime="2014-05-19T14:31:30.000Z">
-    May 19 2014
-  </time>
-</a>
-    
-    
-  
-    <h1 class="title"><a href="/2014/05/19/new-post/">Test for code style</a></h1>
-  
-
-  </header>
-  
-  <div class="entry">
-    
-      <h3 id="Backtick_Code_Block">Backtick Code Block</h3>
-<figure class="highlight [javascript]"><figcaption><span>[test.js]</span></figcaption><pre><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-    <span class="keyword">var</span> a = <span class="number">3</span>;
-    <span class="keyword">var</span> b = <span class="number">5</span>;
-    debugger;
-    <span class="keyword">var</span> bar = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-        <span class="keyword">var</span> b = <span class="number">7</span>, c = <span class="number">11</span>;
-        a += b + c;
-        debugger;
-    }
-    bar();
-    debugger;
-};
-
-foo();
-</pre></figure>
-
-
-<h3 id="Swig_code_Block">Swig code Block</h3>
-<figure class="highlight"><pre><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-    <span class="keyword">var</span> a = <span class="number">3</span>;
-    <span class="keyword">var</span> b = <span class="number">5</span>;
-    debugger;
-    <span class="keyword">var</span> bar = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-        <span class="keyword">var</span> b = <span class="number">7</span>, c = <span class="number">11</span>;
-        a += b + c;
-        debugger;
-    }
-    bar();
- 
-};
-
-foo();
-</pre></figure>
-
-
+<p>可以发现，这个就相当于express的’main’函数，这个函数中完成了所有创建express实例所需要的动作，并在执行完毕后返回一个express实例。我们就从这里开始。</p>
 
     
   </div>
