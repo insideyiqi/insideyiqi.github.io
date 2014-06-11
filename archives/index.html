@@ -79,7 +79,7 @@
 <p>这是第一篇，首先介绍一个最简单的express应用运行过程中源码中的实现，在后续的文章中，我准备将所有express的public api逐一分析，其中也会涉及到一些private api。</p>
 <h1 id="基于的版本">基于的版本</h1>
 <hr>
-<p>我直接看的repo的master分支，目前最新的tags是4.4.2。express从4.x后相对于3.x最大的改动在于移除了几乎所有的内置中间件，具体的变动请看官方wiki的 <a href="https://github.com/visionmedia/express/wiki/Migrating-from-3.x-to-4.x" target="_blank">Migrating from 3.x to 4.x</a> 及 <a href="https://github.com/visionmedia/express/wiki/New-features-in-4.x" target="_blank">New features in 4.x</a>。</p>
+<p>我看的是github上的master分支，截止目前最新的tags是4.4.2。express在4.x后做了较大的改动，相对于3.x最大的地方在于移除了几乎所有的内置中间件，具体的变动请看官方wiki的 <a href="https://github.com/visionmedia/express/wiki/Migrating-from-3.x-to-4.x" target="_blank">Migrating from 3.x to 4.x</a> 及 <a href="https://github.com/visionmedia/express/wiki/New-features-in-4.x" target="_blank">New features in 4.x</a>。</p>
 <h1 id="从一个官方示例开始">从一个官方示例开始</h1>
 <hr>
 <figure class="highlight [javascript]"><pre><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);
