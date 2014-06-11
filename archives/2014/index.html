@@ -85,11 +85,9 @@
 <h6 id="六级">六级</h6>
 <h1 id="大标题">大标题</h1>
 <h2 id="小标题">小标题</h2>
-<figure class="highlight [javascript]"><table><tr><td class="gutter"><pre>1
-2
-</pre></td><td class="code"><pre><span class="keyword">var</span> a = <span class="number">0</span>;
+<figure class="highlight [javascript]"><pre><span class="keyword">var</span> a = <span class="number">0</span>;
 <span class="keyword">for</span> (){};
-</pre></td></tr></table></figure>
+</pre></figure>
 
 
 <h2 id="ok">ok</h2>
@@ -100,15 +98,7 @@
 <p>我直接看的repo的master分支，目前最新的tags是4.4.2。express从4.x后相对于3.x最大的改动在于移除了几乎所有的内置中间件，具体的变动请看官方wiki的 <a href="https://github.com/visionmedia/express/wiki/Migrating-from-3.x-to-4.x" target="_blank">Migrating from 3.x to 4.x</a> 及 <a href="https://github.com/visionmedia/express/wiki/New-features-in-4.x" target="_blank">New features in 4.x</a>。</p>
 <h1 id="从一个官方示例开始">从一个官方示例开始</h1>
 <hr>
-<figure class="highlight [javascript]"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-</pre></td><td class="code"><pre><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);
+<figure class="highlight [javascript]"><pre><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);
 <span class="keyword">var</span> app = express();
 
 app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span><span class="params">(req, res)</span>{</span>
@@ -116,44 +106,28 @@ app.get(<span class="string">'/'</span>, <span class="function"><span class="key
 });
 
 app.listen(<span class="number">3000</span>);
-</pre></td></tr></table></figure>
+</pre></figure>
 
 
 <p>这是官方给出的一个简单程序，运行后访问localhost:3000显示Hello World。下面我们就来仔细看看这段程序。</p>
 <p>首先第一行</p>
-<figure class="highlight [javascript]"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);
-</pre></td></tr></table></figure>
+<figure class="highlight [javascript]"><pre><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);
+</pre></figure>
 
 
-<p>这是典型的Node.js模块载入代码，关于Node.js的模块载入机制，不了解的同学建议看看朴灵的<a href="http://www.infoq.com/cn/articles/nodejs-module-mechanism" target="_blank">深入Node.js的模块机制</a>,非常有帮助。</p>
+<p>这是典型的Node.js模块载入代码，关于Node.js的模块载入机制，不了解的同学建议看看朴灵的<a href="http://www.infoq.com/cn/articles/nodejs-module-mechanism" target="_blank">深入Node.js的模块机制</a>，非常有帮助。</p>
 <p>第一行载入了express框架，我们来看源代码中的index.js。</p>
-<figure class="highlight [javascript]"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre><span class="built_in">module</span>.<span class="built_in">exports</span> = <span class="built_in">require</span>(<span class="string">'./lib/express'</span>);
-</pre></td></tr></table></figure>
+<figure class="highlight [javascript]"><pre><span class="built_in">module</span>.<span class="built_in">exports</span> = <span class="built_in">require</span>(<span class="string">'./lib/express'</span>);
+</pre></figure>
 
 
 <p>好吧，还要继续require，我们看./lib/express.js</p>
-<figure class="highlight [javascript]"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre><span class="built_in">exports</span> = <span class="built_in">module</span>.<span class="built_in">exports</span> = createApplication;
-</pre></td></tr></table></figure>
+<figure class="highlight [javascript]"><pre><span class="built_in">exports</span> = <span class="built_in">module</span>.<span class="built_in">exports</span> = createApplication;
+</pre></figure>
 
 
 <p>从这里我们可以看出，程序的第一行express最后实际是这个createApplication函数。第二行则是运行了这个函数，然后返回值赋给了app。该函数代码如下</p>
-<figure class="highlight [javascript]"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-</pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">createApplication</span><span class="params">()</span> {</span>
+<figure class="highlight [javascript]"><pre><span class="function"><span class="keyword">function</span> <span class="title">createApplication</span><span class="params">()</span> {</span>
   <span class="keyword">var</span> app = <span class="function"><span class="keyword">function</span><span class="params">(req, res, next)</span> {</span>
     app.handle(req, res, next);
   };
@@ -166,7 +140,7 @@ app.listen(<span class="number">3000</span>);
   app.init();
   <span class="keyword">return</span> app;
 }
-</pre></td></tr></table></figure>
+</pre></figure>
 
 
 
@@ -203,21 +177,7 @@ app.listen(<span class="number">3000</span>);
   <div class="entry">
     
       <h3 id="Backtick_Code_Block">Backtick Code Block</h3>
-<figure class="highlight [javascript]"><figcaption><span>[test.js]</span></figcaption><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-</pre></td><td class="code"><pre><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+<figure class="highlight [javascript]"><figcaption><span>[test.js]</span></figcaption><pre><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
     <span class="keyword">var</span> a = <span class="number">3</span>;
     <span class="keyword">var</span> b = <span class="number">5</span>;
     debugger;
@@ -231,25 +191,11 @@ app.listen(<span class="number">3000</span>);
 };
 
 foo();
-</pre></td></tr></table></figure>
+</pre></figure>
 
 
 <h3 id="Swig_code_Block">Swig code Block</h3>
-<figure class="highlight"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-</pre></td><td class="code"><pre><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+<figure class="highlight"><pre><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
     <span class="keyword">var</span> a = <span class="number">3</span>;
     <span class="keyword">var</span> b = <span class="number">5</span>;
     debugger;
@@ -263,7 +209,7 @@ foo();
 };
 
 foo();
-</pre></td></tr></table></figure>
+</pre></figure>
 
 
 

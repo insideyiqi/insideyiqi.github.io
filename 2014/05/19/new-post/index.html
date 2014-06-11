@@ -11,27 +11,16 @@
   
   
     <meta name="description" content="Backtick Code Block
-[test.js]1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-var foo = function() {
+[test.js]var foo = function() {
     var a = 3;
     var b = 5;
     debugger;
     var bar = function() {
         var b = 7, c = 11;
-        a += b +">
+        a += b + c;
+        debugger;
+    }
+    ba">
   
   <meta content="article" property="og:type">
 <meta content="Test for code style" property="og:title">
@@ -39,27 +28,16 @@ var foo = function() {
 <meta property="og:image">
 <meta content="Here is YiQi." property="og:site_name">
 <meta content="Backtick Code Block
-[test.js]1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-var foo = function() {
+[test.js]var foo = function() {
     var a = 3;
     var b = 5;
     debugger;
     var bar = function() {
         var b = 7, c = 11;
-        a += b +" property="og:description">
+        a += b + c;
+        debugger;
+    }
+    ba" property="og:description">
 <meta content="summary" name="twitter:card">
   
     <link rel="alternate" href="/atom.xml" title="Here is YiQi." type="application/atom+xml">
@@ -114,21 +92,7 @@ var foo = function() {
   <div class="entry">
     
       <h3 id="Backtick_Code_Block">Backtick Code Block</h3>
-<figure class="highlight [javascript]"><figcaption><span>[test.js]</span></figcaption><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-</pre></td><td class="code"><pre><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+<figure class="highlight [javascript]"><figcaption><span>[test.js]</span></figcaption><pre><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
     <span class="keyword">var</span> a = <span class="number">3</span>;
     <span class="keyword">var</span> b = <span class="number">5</span>;
     debugger;
@@ -142,25 +106,11 @@ var foo = function() {
 };
 
 foo();
-</pre></td></tr></table></figure>
+</pre></figure>
 
 
 <h3 id="Swig_code_Block">Swig code Block</h3>
-<figure class="highlight"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-</pre></td><td class="code"><pre><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+<figure class="highlight"><pre><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
     <span class="keyword">var</span> a = <span class="number">3</span>;
     <span class="keyword">var</span> b = <span class="number">5</span>;
     debugger;
@@ -174,7 +124,7 @@ foo();
 };
 
 foo();
-</pre></td></tr></table></figure>
+</pre></figure>
 
 
 
