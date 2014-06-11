@@ -70,7 +70,7 @@
     
     
   
-    <h1 class="title"><a href="/2014/06/11/dive-into-express-1/">解读express 4.x（1）</a></h1>
+    <h1 class="title"><a href="/2014/06/11/dive-into-express-1/">解读express 4.x源码(1)</a></h1>
   
 
   </header>
@@ -91,7 +91,7 @@
 
 
 <h2 id="ok">ok</h2>
-<p>这两天仔细看了一遍<a href="https://github.com/visionmedia/express" target="_blank">express</a>的源码，对其的整个实现有了较清晰的认识，所以想总结一下写出来，如果有什么不对的地方，望指出。</p>
+<p>这两天仔细看了看<a href="https://github.com/visionmedia/express" target="_blank">express</a>的源码，对其的整个实现有了较清晰的认识，所以想总结一下写出来，如果有什么不对的地方，望指出。</p>
 <p>这是第一篇，首先介绍一个最简单的express应用运行过程中源码中的实现，在后续的文章中，我准备将所有express的public api逐一分析，其中也会涉及到一些private api。</p>
 <h1 id="基于的版本">基于的版本</h1>
 <hr>
@@ -127,7 +127,13 @@ app.listen(<span class="number">3000</span>);
 
 
 <p>从这里我们可以看出，程序的第一行express最后实际是这个createApplication函数。第二行则是运行了这个函数，然后返回值赋给了app。该函数代码如下</p>
-<figure class="highlight [javascript]"><pre><span class="function"><span class="keyword">function</span> <span class="title">createApplication</span><span class="params">()</span> {</span>
+<figure class="highlight [javascript]"><pre><span class="keyword">var</span> EventEmitter = <span class="built_in">require</span>(<span class="string">'events'</span>).EventEmitter;
+<span class="keyword">var</span> mixin = <span class="built_in">require</span>(<span class="string">'utils-merge'</span>);
+<span class="keyword">var</span> proto = <span class="built_in">require</span>(<span class="string">'./application'</span>);
+<span class="keyword">var</span> req = <span class="built_in">require</span>(<span class="string">'./request'</span>);
+<span class="keyword">var</span> res = <span class="built_in">require</span>(<span class="string">'./response'</span>);
+
+<span class="function"><span class="keyword">function</span> <span class="title">createApplication</span><span class="params">()</span> {</span>
   <span class="keyword">var</span> app = <span class="function"><span class="keyword">function</span><span class="params">(req, res, next)</span> {</span>
     app.handle(req, res, next);
   };
@@ -143,7 +149,53 @@ app.listen(<span class="number">3000</span>);
 </pre></figure>
 
 
-<p>可以发现，这个就相当于express的’main’函数，这个函数中完成了所有创建express实例所需要的动作，并在执行完毕后返回一个express实例。我们就从这里开始。</p>
+<p>可以发现，这个就相当于express的’main’函数，其中完成了所有创建express实例所需要的动作，并在执行完毕后返回一个函数。</p>
+<p>代码的开始定义了一个函数，函数的形参req即为导入的request.js，res为导入的response.js，next为回调函数。<br>函数体只有一条语句，执行app.handle，handle方法在application.js文件中定义，此处是通过mixin导入(见下文)，handle的代码如下</p>
+<figure class="highlight [javascript]"><pre>app.handle = <span class="function"><span class="keyword">function</span><span class="params">(req, res, done)</span> {</span>
+  <span class="keyword">var</span> router = <span class="keyword">this</span>._router;
+
+  <span class="comment">// final handler</span>
+  done = done || finalhandler(req, res, {
+    env: <span class="keyword">this</span>.get(<span class="string">'env'</span>),
+    onerror: logerror.bind(<span class="keyword">this</span>)
+  });
+
+  <span class="comment">// no routes</span>
+  <span class="keyword">if</span> (!router) {
+    debug(<span class="string">'no routes defined on app'</span>);
+
+    <span class="comment">// generate error    </span>
+    <span class="keyword">var</span> err = <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'No routes or middlewares have been defined'</span>);
+    err.status = <span class="number">500</span>;
+    done(err);
+    <span class="keyword">return</span>;
+  }
+
+  router.handle(req, res, done);
+};
+</pre></figure>
+
+
+<p>它的作用就是将每个[req,res]对进行逐级分发，作用在每个定义好的路由及中间件上，直到最后完成返回，具体的过程我们会在后续进行分析。</p>
+<p>然后来看看中间的两行</p>
+<figure class="highlight [javascript]"><pre><span class="keyword">mixin</span>(app, proto);
+<span class="keyword">mixin</span>(app, EventEmitter.prototype);
+</pre></figure>
+
+
+<p>mixin是在头部的require处载入的’<a href="https://www.npmjs.org/package/utils-merge" target="_blank">utils-merge</a>‘模块，它的<a href="https://github.com/jaredhanson/utils-merge" target="_blank">代码</a>如下</p>
+<figure class="highlight [javascript]"><pre><span class="built_in">exports</span> = <span class="built_in">module</span>.<span class="built_in">exports</span> = <span class="reserved">function</span>(a, b){
+  <span class="keyword">if</span> (a && b) {
+    <span class="keyword">for</span> (<span class="reserved">var</span> key <span class="keyword">in</span> b) {
+      a[key] = b[key];
+    }
+  }
+  <span class="keyword">return</span> a;
+};
+</pre></figure>
+
+
+<p>很明显，mixin(app, proto);的作用即是将proto中所有的property全部导入进app，proto在头部的require处载入的是./lib/application.js文件，其中定义了大部分express的public api。<br>mixin(app, EventEmitter.prototype);则将Node.js的EventEmitter中的原型方法全部导入了app。</p>
 
     
   </div>
