@@ -92,9 +92,15 @@
 </pre></td></tr></table></figure>
 
 
-
-
-<figure class="highlight express```"><table><tr><td class="gutter"><pre>1
+<h2 id="ok">ok</h2>
+<p>这两天仔细看了一遍<a href="https://github.com/visionmedia/express" target="_blank">express</a>的源码，对其的整个实现有了较清晰的认识，所以想总结一下写出来，如果有什么不对的地方，望指出。</p>
+<p>这是第一篇，首先介绍一个最简单的express应用运行过程中源码中的实现，在后续的文章中，我准备将所有express的public api逐一分析，其中也会涉及到一些private api。</p>
+<h1 id="基于的版本">基于的版本</h1>
+<hr>
+<p>我直接看的repo的master分支，目前最新的tags是4.4.2。express从4.x后相对于3.x最大的改动在于移除了几乎所有的内置中间件，具体的变动请看官方wiki的 <a href="https://github.com/visionmedia/express/wiki/Migrating-from-3.x-to-4.x" target="_blank">Migrating from 3.x to 4.x</a> 及 <a href="https://github.com/visionmedia/express/wiki/New-features-in-4.x" target="_blank">New features in 4.x</a>。</p>
+<h1 id="从一个官方示例开始">从一个官方示例开始</h1>
+<hr>
+<figure class="highlight [javascript]"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -102,42 +108,14 @@
 6
 7
 8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-</pre></td><td class="code"><pre>
-<span class="header">ok
----</span>
-这两天仔细看了一遍[<span class="link_label">express</span>][<span class="link_reference">1</span>]的源码，对其的整个实现有了较清晰的认识，所以想总结一下写出来，如果有什么不对的地方，望指出。
+</pre></td><td class="code"><pre><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);
+<span class="keyword">var</span> app = express();
 
-这是第一篇，首先介绍一个最简单的express应用运行过程中源码中的实现，在后续的文章中，我准备将所有express的public api逐一分析，其中也会涉及到一些private api。
-
-<span class="header"># 基于的版本</span>
-<span class="horizontal_rule">---</span>
-我直接看的repo的master分支，目前最新的tags是4.4.2。express从4.x后相对于3.x最大的改动在于移除了几乎所有的内置中间件，具体的变动请看官方wiki的 [<span class="link_label">Migrating from 3.x to 4.x</span>][<span class="link_reference">2</span>] 及 [<span class="link_label">New features in 4.x</span>][<span class="link_reference">3</span>]。
-
-<span class="header"># 从一个官方示例开始</span>
-<span class="horizontal_rule">---</span>
-<span class="code">```</span>[javascript]
-var express = require('express');
-var app = express();
-
-app.get('/', function(req, res){
-  res.send('Hello World');
+app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span><span class="params">(req, res)</span>{</span>
+  res.send(<span class="string">'Hello World'</span>);
 });
 
-app.listen(3000);
+app.listen(<span class="number">3000</span>);
 </pre></td></tr></table></figure>
 
 
