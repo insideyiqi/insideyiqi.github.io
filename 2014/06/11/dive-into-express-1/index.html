@@ -273,7 +273,7 @@ app.response = { <span class="strong">__proto__</span>: res, app: app };
 <p>http.createServer([requestListener])#<br>Returns a new web server object.</p>
 <p>The requestListener is a function which is automatically added to the ‘request’ event.</p>
 </blockquote>
-<p>方法返回的是一个web server对象，其中的参数为HTTP request时间触发后执行的函数。<br>最后，返回的web server有一个监听端口的listen方法，参数为需要监听的端口号，本示例中即为3000。</p>
+<p>方法返回的是一个web server对象，其中的参数为HTTP request时间触发后执行的函数(这里我们给的就是我们在createApplication函数中获得的app)。<br>最后，返回的web server有一个监听端口的listen方法，参数为需要监听的端口号，本示例中即为3000。</p>
 
     
   </div>
