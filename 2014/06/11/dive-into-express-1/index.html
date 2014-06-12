@@ -83,7 +83,7 @@
 <p>这是第一篇，首先介绍一个最简单的express应用运行过程中源码中的实现，在后续的文章中，我准备将所有express的public api逐一分析，其中也会涉及到一些private api。</p>
 <h1 id="基于的版本">基于的版本</h1>
 <hr>
-<p>我看的是github上的master分支，截止目前最新的tags是4.4.2。express在4.x后做了较大的改动，相对于3.x最大的地方在于移除了几乎所有的内置中间件，具体的变动请看官方wiki的 <a href="https://github.com/visionmedia/express/wiki/Migrating-from-3.x-to-4.x" target="_blank">Migrating from 3.x to 4.x</a> 及 <a href="https://github.com/visionmedia/express/wiki/New-features-in-4.x" target="_blank">New features in 4.x</a>。</p>
+<p>我看的是github上的master分支，截止目前最新的tags是4.4.2。express在4.x后做了较大的改动，相对于3.x最大的地方在于不再依赖connect，并移除了几乎所有的内置中间件，具体的变动请看官方wiki的 <a href="https://github.com/visionmedia/express/wiki/Migrating-from-3.x-to-4.x" target="_blank">Migrating from 3.x to 4.x</a> 及 <a href="https://github.com/visionmedia/express/wiki/New-features-in-4.x" target="_blank">New features in 4.x</a>。</p>
 <h1 id="从一个官方示例开始">从一个官方示例开始</h1>
 <hr>
 <figure class="highlight [javascript]"><pre><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);
@@ -171,7 +171,7 @@ app.listen(<span class="number">3000</span>);
 </pre></figure>
 
 
-<p>mixin是在头部的require处载入的’<a href="https://www.npmjs.org/package/utils-merge" target="_blank">utils-merge</a>‘模块，它的<a href="https://github.com/jaredhanson/utils-merge" target="_blank">代码</a>如下</p>
+<p>mixin是在头部的require处载入的<a href="https://www.npmjs.org/package/utils-merge" target="_blank">utils-merge</a>模块，它的<a href="https://github.com/jaredhanson/utils-merge" target="_blank">代码</a>如下</p>
 <figure class="highlight [javascript]"><pre><span class="built_in">exports</span> = <span class="built_in">module</span>.<span class="built_in">exports</span> = <span class="reserved">function</span>(a, b){
   <span class="keyword">if</span> (a && b) {
     <span class="keyword">for</span> (<span class="reserved">var</span> key <span class="keyword">in</span> b) {
@@ -183,7 +183,14 @@ app.listen(<span class="number">3000</span>);
 </pre></figure>
 
 
-<p>很明显，mixin(app, proto);的作用即是将proto中所有的property全部导入进app，proto在头部的require处载入的是./lib/application.js文件，其中定义了大部分express的public api。<br>mixin(app, EventEmitter.prototype);则将Node.js的EventEmitter中的原型方法全部导入了app。</p>
+<p>很明显，mixin(app, proto);的作用即是将proto中所有的property全部导入进app，proto在头部的require处载入的是./lib/application.js文件，其中定义了大部分express的public api，如app.set,app.get,app.use…详见官方的<a href="http://expressjs.com/4x/api.html" target="_blank">API文档</a>。<br>mixin(app, EventEmitter.prototype);则将Node.js的EventEmitter中的原型方法全部导入了app。</p>
+<p>再来看接下来的两行<br><code>[javascript]
+app.request = { __proto__: req, app: app };
+app.response = { __proto__: res, app: app };</code>[javascript]</p>
+<p>这里定义了app的request和response对象，使用了对象的字面量表示法，使其分别继承自req和res，并反向引用了app自身。为什么要这样做呢？这个问题我一开始也想不明白，后来我就干脆把这两行代码删了，运行，当然就是报错，答案就在错误中的信息里。</p>
+<blockquote>
+<p>TypeError: Object #<ServerResponse> has no method ‘send’<br>    at Object.handle (/Users/YiQi/code/node/expr/app.js:5:7)<br>    at next_layer (/Users/YiQi/code/node/expr/node_modules/express/lib/router/route.js:103:13)<br>    at Route.dispatch (/Users/YiQi/code/node/expr/node_modules/express/lib/router/route.js:107:5)<br>    at /Users/YiQi/code/node/expr/node_modules/express/lib/router/index.js:213:24<br>    at Function.proto.process_params (/Users/YiQi/code/node/expr/node_modules/express/lib/router/index.js:284:12)<br>    at next (/Users/YiQi/code/node/expr/node_modules/express/lib/router/index.js:207:19)<br>    at Layer.expressInit [as handle] (/Users/YiQi/code/node/expr/node_modules/express/lib/middleware/init.js:23:5)<br>    at trim_prefix (/Users/YiQi/code/node/expr/node_modules/express/lib/router/index.js:252:17)<br>    at /Users/YiQi/code/node/expr/node_modules/express/lib/router/index.js:216:9<br>    at Function.proto.process_params (/Users/YiQi/code/node/expr/node_modules/express/lib/router/index.js:284:12)</p>
+</blockquote>
 
     
   </div>
