@@ -76,10 +76,10 @@
   <div class="entry">
     
       <p>这两天仔细看了看<a href="https://github.com/visionmedia/express" target="_blank">express</a>的源码，对其的整个实现有了较清晰的认识，所以想总结一下写出来，如果有什么不对的地方，望指出。</p>
-<p>这是第一篇，首先介绍一个最简单的express应用运行过程中源码中的实现，在后续的文章中，我准备将所有express的public api逐一分析，其中也会涉及到一些private api。</p>
+<p>这是第一篇，首先介绍一个最简单的express应用运行过程，初步分析了其在源码中的具体实现，还没有涉及到一些比较重要的内容比如路由组件的实现方式，中间件的触发流程等。在后续的总结中，我会继续分析，并准备将一些值得分析的public api逐一解读，也会涉及一些private api。</p>
 <h1 id="基于的版本">基于的版本</h1>
 <hr>
-<p>我看的是github上的master分支，截止目前最新的tags是4.4.2。express在4.x后做了较大的改动，相对于3.x最大的地方在于不再依赖connect，并移除了几乎所有的内置中间件，具体的变动请看官方wiki的 <a href="https://github.com/visionmedia/express/wiki/Migrating-from-3.x-to-4.x" target="_blank">Migrating from 3.x to 4.x</a> 及 <a href="https://github.com/visionmedia/express/wiki/New-features-in-4.x" target="_blank">New features in 4.x</a>。</p>
+<p>截止写这篇文章时目前最新的tags是4.4.2。我是直接看的master分支。express的commits提交非常频繁，但总体的实现思路应该不会有大的变化。express在4.x后做了较大的改动，相对于3.x最大的地方在于不再依赖connect，并移除了几乎所有的内置中间件，具体的变动请看官方wiki的 <a href="https://github.com/visionmedia/express/wiki/Migrating-from-3.x-to-4.x" target="_blank">Migrating from 3.x to 4.x</a> 及 <a href="https://github.com/visionmedia/express/wiki/New-features-in-4.x" target="_blank">New features in 4.x</a>。</p>
 <h1 id="从一个官方示例开始">从一个官方示例开始</h1>
 <hr>
 <figure class="highlight [javascript]"><pre><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);
@@ -181,16 +181,17 @@ app.listen(<span class="number">3000</span>);
 
 <p>很明显，mixin(app, proto);的作用即是将proto中所有的property全部导入进app，proto在头部的require处载入的是./lib/application.js文件，其中定义了大部分express的public api，如app.set,app.get,app.use…详见官方的<a href="http://expressjs.com/4x/api.html" target="_blank">API文档</a>。<br>mixin(app, EventEmitter.prototype);则将Node.js的EventEmitter中的原型方法全部导入了app。</p>
 <p>再来看接下来的两行</p>
-<figure class="highlight [javascript]"><pre>app.request = { __proto__: req, app: app };
-app.response = { __proto__: res, app: app };
-```[javascript]
+<figure class="highlight [javascript]"><pre>app.request = { <span class="strong">__proto__</span>: req, app: app };
+app.response = { <span class="strong">__proto__</span>: res, app: app };
+</pre></figure>
 
-这里定义了app的request和response对象，使用了对象的字面量表示法，使其分别继承自req和res，并反向引用了app自身。为什么要这样做呢？这个问题我一开始也想不明白，后来我就干脆把这两行代码删了，运行，当然就是报错，答案就在错误中的信息里。
-&gt; <span class="built_in">TypeError</span>: <span class="built_in">Object</span> #&lt;ServerResponse&gt; has no method <span class="string">'send'</span>
 
-显示找不到<span class="string">'send'</span>方法，为什么呢？首先我们从app.get()方法看起，不熟悉的人会找不到它在源码中的位置，其实它在application.js中是这样的
-```[javascript]
-methods.forEach(<span class="function"><span class="keyword">function</span><span class="params">(method)</span>{</span>
+<p>这里定义了app的request和response对象，使用了对象的字面量表示法，使其分别继承自req和res，并反向引用了app自身。为什么要这样做呢？这个问题我一开始想不明白，后来我就干脆把这两行代码删了，运行，当然就是报错，答案就在错误中的信息里。</p>
+<blockquote>
+<p>TypeError: Object #<ServerResponse> has no method ‘send’</p>
+</blockquote>
+<p>显示找不到’send’方法，为什么呢？首先我们从app.get()方法看起，不熟悉的人会找不到它在源码中的位置，其实它在application.js中是这样的</p>
+<figure class="highlight [javascript]"><pre>methods.forEach(<span class="function"><span class="keyword">function</span><span class="params">(method)</span>{</span>
   app[method] = <span class="function"><span class="keyword">function</span><span class="params">(path)</span>{</span>
     <span class="keyword">if</span> (<span class="string">'get'</span> == method && <span class="number">1</span> == <span class="built_in">arguments</span>.length) <span class="keyword">return</span> <span class="keyword">this</span>.set(path);
 
