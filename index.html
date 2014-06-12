@@ -180,13 +180,101 @@ app.listen(<span class="number">3000</span>);
 
 
 <p>很明显，mixin(app, proto);的作用即是将proto中所有的property全部导入进app，proto在头部的require处载入的是./lib/application.js文件，其中定义了大部分express的public api，如app.set,app.get,app.use…详见官方的<a href="http://expressjs.com/4x/api.html" target="_blank">API文档</a>。<br>mixin(app, EventEmitter.prototype);则将Node.js的EventEmitter中的原型方法全部导入了app。</p>
-<p>再来看接下来的两行<br><code>[javascript]
-app.request = { __proto__: req, app: app };
-app.response = { __proto__: res, app: app };</code>[javascript]</p>
-<p>这里定义了app的request和response对象，使用了对象的字面量表示法，使其分别继承自req和res，并反向引用了app自身。为什么要这样做呢？这个问题我一开始也想不明白，后来我就干脆把这两行代码删了，运行，当然就是报错，答案就在错误中的信息里。</p>
+<p>再来看接下来的两行</p>
+<figure class="highlight [javascript]"><pre>app.request = { __proto__: req, app: app };
+app.response = { __proto__: res, app: app };
+```[javascript]
+
+这里定义了app的request和response对象，使用了对象的字面量表示法，使其分别继承自req和res，并反向引用了app自身。为什么要这样做呢？这个问题我一开始也想不明白，后来我就干脆把这两行代码删了，运行，当然就是报错，答案就在错误中的信息里。
+&gt; <span class="built_in">TypeError</span>: <span class="built_in">Object</span> #&lt;ServerResponse&gt; has no method <span class="string">'send'</span>
+
+显示找不到<span class="string">'send'</span>方法，为什么呢？首先我们从app.get()方法看起，不熟悉的人会找不到它在源码中的位置，其实它在application.js中是这样的
+```[javascript]
+methods.forEach(<span class="function"><span class="keyword">function</span><span class="params">(method)</span>{</span>
+  app[method] = <span class="function"><span class="keyword">function</span><span class="params">(path)</span>{</span>
+    <span class="keyword">if</span> (<span class="string">'get'</span> == method && <span class="number">1</span> == <span class="built_in">arguments</span>.length) <span class="keyword">return</span> <span class="keyword">this</span>.set(path);
+
+    <span class="keyword">this</span>.lazyrouter();
+
+    <span class="keyword">var</span> route = <span class="keyword">this</span>._router.route(path);
+    route[method].apply(route, [].slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>));
+    <span class="keyword">return</span> <span class="keyword">this</span>;
+  };
+});
+</pre></figure>
+
+
+<p>methods在顶部模块引入中定义，其实是一个包含各个HTTP请求方法的数组，具体代码在<a href="https://github.com/visionmedia/node-methods/blob/master/index.js" target="_blank">这里</a>。<br>从上面的代码中我们可以看到，这里实际上是遍历了所有methods中定义的方法，当然其中包括get，而且get方法是被’重载’的，即当app.get();的参数只有一个时候，执行的是获取变量的功能，否则，执行route组件中的route.get方法，将该路由和回调函数(即第二个参数)存储进一个栈中(后续会进一步分析)。<br>回到原来的问题，在这里，关键是看中间的</p>
+<figure class="highlight [javascript]"><pre><span class="keyword">this</span>.lazyrouter();
+</pre></figure>
+
+
+<p>我们看它的具体代码</p>
+<figure class="highlight [javascript]"><pre>app.lazyrouter = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  <span class="keyword">if</span> (!<span class="keyword">this</span>._router) {
+    <span class="keyword">this</span>._router = <span class="keyword">new</span> Router({
+      caseSensitive: <span class="keyword">this</span>.enabled(<span class="string">'case sensitive routing'</span>),
+      strict: <span class="keyword">this</span>.enabled(<span class="string">'strict routing'</span>)
+    });
+
+    <span class="keyword">this</span>._router.<span class="keyword">use</span>(query());
+    <span class="keyword">this</span>._router.<span class="keyword">use</span>(middleware.init(<span class="keyword">this</span>));
+  }
+};
+</pre></figure>
+
+
+<p>它的作用是在第一次定义路由的时候初始化路由(添加基本的路由)，注意最后一句用到了middleware模块的init方法，继续上代码</p>
+<figure class="highlight [javascript]"><pre>exports.init = <span class="function"><span class="keyword">function</span><span class="params">(app)</span></span>{
+  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">expressInit</span><span class="params">(req, res, next)</span></span>{
+    <span class="keyword">if</span> (app.enabled(<span class="string">'x-powered-by'</span>)) res.setHeader(<span class="string">'X-Powered-By'</span>, <span class="string">'Express'</span>);
+    req.res = res;
+    res.req = req;
+    req.<span class="built_in">next</span> = <span class="built_in">next</span>;
+
+    req.__proto__ = app.request;
+    res.__proto__ = app.response;
+
+    res.locals = res.locals || Object.create(null);
+
+    <span class="built_in">next</span>();
+  };
+};
+</pre></figure>
+
+
+<p>它的作用是初始化request和response，可以看到其中用到了我所疑惑app.request和app.respone，它使req和res继承自了request.js和response.js中的定义，也因此在我去掉了那两行代码后会出现res.send找不到的情况。<br>另外，定义app.response对象时反引用自身，也使得后面在response对象中能够通过this.app获得所创建的express实例。</p>
+<p>让我们回到createApplication函数，接下来是app.init();。显然，作用是初始化，做哪些工作呢？</p>
+<figure class="highlight [javascript]"><pre>app.init = <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+  <span class="keyword">this</span>.cache = {};
+  <span class="keyword">this</span>.settings = {};
+  <span class="keyword">this</span>.engines = {};
+  <span class="keyword">this</span>.defaultConfiguration();
+};
+</pre></figure>
+
+
+<p>设定了cache对象(render的时候用到)，各种setting的存储对象，engines对象(模板引擎)，最后进行默认的配置，代码有点长这里就不上了，就是做一些默认的配置。</p>
+<p>好了，createApplication函数就是这些，当然，其中略去了很多重要的问题，比如路由组件的实现方式，中间件的触发流程等，这我会在后续的总结中进行分析。</p>
+<p>最开头的官方示例中还有最后一句</p>
+<figure class="highlight [javascript]"><pre>app.<span class="keyword">listen</span>(<span class="number">3000</span>);
+</pre></figure>
+
+
+<p>代码如下</p>
+<figure class="highlight [javascript]"><pre>app.listen = <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+  <span class="keyword">var</span> server = http.createServer(<span class="keyword">this</span>);
+  <span class="keyword">return</span> server.listen.apply(server, <span class="built_in">arguments</span>);
+};
+</pre></figure>
+
+
+<p>实际上是调用了Node.js原生的http模块的CreatServer方法，<a href="http://nodejs.org/api/http.html#http_http_createserver_requestlistener" target="_blank">API文档</a>说明是</p>
 <blockquote>
-<p>TypeError: Object #<ServerResponse> has no method ‘send’<br>    at Object.handle (/Users/YiQi/code/node/expr/app.js:5:7)<br>    at next_layer (/Users/YiQi/code/node/expr/node_modules/express/lib/router/route.js:103:13)<br>    at Route.dispatch (/Users/YiQi/code/node/expr/node_modules/express/lib/router/route.js:107:5)<br>    at /Users/YiQi/code/node/expr/node_modules/express/lib/router/index.js:213:24<br>    at Function.proto.process_params (/Users/YiQi/code/node/expr/node_modules/express/lib/router/index.js:284:12)<br>    at next (/Users/YiQi/code/node/expr/node_modules/express/lib/router/index.js:207:19)<br>    at Layer.expressInit [as handle] (/Users/YiQi/code/node/expr/node_modules/express/lib/middleware/init.js:23:5)<br>    at trim_prefix (/Users/YiQi/code/node/expr/node_modules/express/lib/router/index.js:252:17)<br>    at /Users/YiQi/code/node/expr/node_modules/express/lib/router/index.js:216:9<br>    at Function.proto.process_params (/Users/YiQi/code/node/expr/node_modules/express/lib/router/index.js:284:12)</p>
+<p>http.createServer([requestListener])#<br>Returns a new web server object.</p>
+<p>The requestListener is a function which is automatically added to the ‘request’ event.</p>
 </blockquote>
+<p>方法返回的是一个web server对象，其中的参数为HTTP request时间触发后执行的函数。<br>最后，返回的web server有一个监听端口的listen方法，参数为需要监听的端口号，本示例中即为3000。</p>
 
     
   </div>
