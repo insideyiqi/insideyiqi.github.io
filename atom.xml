@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[Here is YiQi.]]></title>
+  <subtitle><![CDATA[Be original.]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://insideyiqi.github.io/"/>
+  <updated>2014-06-12T16:42:44.931Z</updated>
+  <id>http://insideyiqi.github.io/</id>
+  
+  <author>
+    <name><![CDATA[YiQi]]></name>
+    <email><![CDATA[insideyiqi@gmail.com]]></email>
+  </author>
+  
+  <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[解读express 4.x源码(1)]]></title>
+    <link href="http://insideyiqi.github.io/2014/06/11/dive-into-express-1/"/>
+    <id>http://insideyiqi.github.io/2014/06/11/dive-into-express-1/</id>
+    <published>2014-06-11T14:21:11.000Z</published>
+    <updated>2014-06-12T14:23:56.000Z</updated>
+    <content type="html"><![CDATA[<p>这两天仔细看了看<a href="https://github.com/visionmedia/express" target="_blank">express</a>的源码，对其的整个实现有了较清晰的认识，所以想总结一下写出来，如果有什么不对的地方，望指出。</p>
+<p>这是第一篇，首先介绍一个最简单的express应用运行过程，初步分析了其在源码中的具体实现，还没有涉及到一些比较重要的内容比如路由组件的实现方式，中间件的触发流程等。在后续的总结中，我会继续分析，并准备将一些值得分析的public api逐一解读，也会涉及一些private api。</p>
+<h1 id="基于的版本">基于的版本</h1>
+<hr>
+<p>截止写这篇文章时目前最新的tags是4.4.2。我是直接看的master分支。express的commits提交非常频繁，但总体的实现思路应该不会有大的变化。express在4.x后做了较大的改动，相对于3.x最大的地方在于不再依赖connect，并移除了几乎所有的内置中间件，具体的变动请看官方wiki的 <a href="https://github.com/visionmedia/express/wiki/Migrating-from-3.x-to-4.x" target="_blank">Migrating from 3.x to 4.x</a> 及 <a href="https://github.com/visionmedia/express/wiki/New-features-in-4.x" target="_blank">New features in 4.x</a>。</p>
+<h1 id="从一个官方示例开始">从一个官方示例开始</h1>
+<hr>
+<figure class="highlight [javascript]"><pre><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);
+<span class="keyword">var</span> app = express();
+
+app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span><span class="params">(req, res)</span>{</span>
+  res.send(<span class="string">'Hello World'</span>);
+});
+
+app.listen(<span class="number">3000</span>);
+</pre></figure>
+
+
+<p>这是官方给出的一个简单程序，运行后访问localhost:3000显示Hello World。下面我们就来仔细看看这段程序。</p>
+<p>首先第一行</p>
+<figure class="highlight [javascript]"><pre><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);
+</pre></figure>
+
+
+<p>这是典型的Node.js模块载入代码，关于Node.js的模块载入机制，不了解的同学建议看看朴灵的<a href="http://www.infoq.com/cn/articles/nodejs-module-mechanism" target="_blank">深入Node.js的模块机制</a>，非常有帮助。</p>
+<p>第一行载入了express框架，我们来看源代码中的index.js。</p>
+<figure class="highlight [javascript]"><pre><span class="built_in">module</span>.<span class="built_in">exports</span> = <span class="built_in">require</span>(<span class="string">'./lib/express'</span>);
+</pre></figure>
+
+
+<p>好吧，还要继续require，我们看./lib/express.js</p>
+<figure class="highlight [javascript]"><pre><span class="built_in">exports</span> = <span class="built_in">module</span>.<span class="built_in">exports</span> = createApplication;
+</pre></figure>
+
+
+<p>从这里我们可以看出，程序的第一行express最后实际是这个createApplication函数。第二行则是运行了这个函数，然后返回值赋给了app。该函数代码如下</p>
+<figure class="highlight [javascript]"><pre><span class="keyword">var</span> EventEmitter = <span class="built_in">require</span>(<span class="string">'events'</span>).EventEmitter;
+<span class="keyword">var</span> mixin = <span class="built_in">require</span>(<span class="string">'utils-merge'</span>);
+<span class="keyword">var</span> proto = <span class="built_in">require</span>(<span class="string">'./application'</span>);
+<span class="keyword">var</span> req = <span class="built_in">require</span>(<span class="string">'./request'</span>);
+<span class="keyword">var</span> res = <span class="built_in">require</span>(<span class="string">'./response'</span>);
+
+<span class="function"><span class="keyword">function</span> <span class="title">createApplication</span><span class="params">()</span> {</span>
+  <span class="keyword">var</span> app = <span class="function"><span class="keyword">function</span><span class="params">(req, res, next)</span> {</span>
+    app.handle(req, res, next);
+  };
+
+  mixin(app, proto);
+  mixin(app, EventEmitter.prototype);
+
+  app.request = { __proto__: req, app: app };
+  app.response = { __proto__: res, app: app };
+  app.init();
+  <span class="keyword">return</span> app;
+}
+</pre></figure>
+
+
+<p>可以发现，这个就相当于express的’main’函数，其中完成了所有创建express实例所需要的动作，并在执行完毕后返回一个函数。</p>
+<p>代码的开始定义了一个函数，函数的形参req即为导入的request.js，res为导入的response.js，next为回调函数。<br>函数体只有一条语句，执行app.handle，handle方法在application.js文件中定义，此处是通过mixin导入(见下文)，handle的代码如下</p>
+<figure class="highlight [javascript]"><pre>app.handle = <span class="function"><span class="keyword">function</span><span class="params">(req, res, done)</span> {</span>
+  <span class="keyword">var</span> router = <span class="keyword">this</span>._router;
+
+  <span class="comment">// final handler</span>
+  done = done || finalhandler(req, res, {
+    env: <span class="keyword">this</span>.get(<span class="string">'env'</span>),
+    onerror: logerror.bind(<span class="keyword">this</span>)
+  });
+
+  <span class="comment">// no routes</span>
+  <span class="keyword">if</span> (!router) {
+    debug(<span class="string">'no routes defined on app'</span>);
+
+    <span class="comment">// generate error    </span>
+    <span class="keyword">var</span> err = <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'No routes or middlewares have been defined'</span>);
+    err.status = <span class="number">500</span>;
+    done(err);
+    <span class="keyword">return</span>;
+  }
+
+  router.handle(req, res, done);
+};
+</pre></figure>
+
+
+<p>它的作用就是将每个[req,res]对进行逐级分发，作用在每个定义好的路由及中间件上，直到最后完成返回，具体的过程我们会在后续进行分析。</p>
+<p>然后来看看中间的两行</p>
+<figure class="highlight [javascript]"><pre><span class="keyword">mixin</span>(app, proto);
+<span class="keyword">mixin</span>(app, EventEmitter.prototype);
+</pre></figure>
+
+
+<p>mixin是在头部的require处载入的<a href="https://www.npmjs.org/package/utils-merge" target="_blank">utils-merge</a>模块，它的<a href="https://github.com/jaredhanson/utils-merge" target="_blank">代码</a>如下</p>
+<figure class="highlight [javascript]"><pre><span class="built_in">exports</span> = <span class="built_in">module</span>.<span class="built_in">exports</span> = <span class="reserved">function</span>(a, b){
+  <span class="keyword">if</span> (a && b) {
+    <span class="keyword">for</span> (<span class="reserved">var</span> key <span class="keyword">in</span> b) {
+      a[key] = b[key];
+    }
+  }
+  <span class="keyword">return</span> a;
+};
+</pre></figure>
+
+
+<p>很明显，mixin(app, proto);的作用即是将proto中所有的property全部导入进app，proto在头部的require处载入的是./lib/application.js文件，其中定义了大部分express的public api，如app.set,app.get,app.use…详见官方的<a href="http://expressjs.com/4x/api.html" target="_blank">API文档</a>。<br>mixin(app, EventEmitter.prototype);则将Node.js的EventEmitter中的原型方法全部导入了app。</p>
+<p>再来看接下来的两行</p>
+<figure class="highlight [javascript]"><pre>app.request = { <span class="strong">__proto__</span>: req, app: app };
+app.response = { <span class="strong">__proto__</span>: res, app: app };
+</pre></figure>
+
+
+<p>这里定义了app的request和response对象，使用了对象的字面量表示法，使其分别继承自req和res，并反向引用了app自身。为什么要这样做呢？这个问题我一开始想不明白，后来我就干脆把这两行代码删了，运行，当然就是报错，答案就在错误中的信息里。</p>
+<blockquote>
+<p>TypeError: Object #<ServerResponse> has no method ‘send’</p>
+</blockquote>
+<p>显示找不到’send’方法，为什么呢？首先我们从app.get()方法看起，不熟悉的人会找不到它在源码中的位置，其实它在application.js中是这样的</p>
+<figure class="highlight [javascript]"><pre>methods.forEach(<span class="function"><span class="keyword">function</span><span class="params">(method)</span>{</span>
+  app[method] = <span class="function"><span class="keyword">function</span><span class="params">(path)</span>{</span>
+    <span class="keyword">if</span> (<span class="string">'get'</span> == method && <span class="number">1</span> == <span class="built_in">arguments</span>.length) <span class="keyword">return</span> <span class="keyword">this</span>.set(path);
+
+    <span class="keyword">this</span>.lazyrouter();
+
+    <span class="keyword">var</span> route = <span class="keyword">this</span>._router.route(path);
+    route[method].apply(route, [].slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>));
+    <span class="keyword">return</span> <span class="keyword">this</span>;
+  };
+});
+</pre></figure>
+
+
+<p>methods在顶部模块引入中定义，其实是一个包含各个HTTP请求方法的数组，具体代码在<a href="https://github.com/visionmedia/node-methods/blob/master/index.js" target="_blank">这里</a>。<br>从上面的代码中我们可以看到，这里实际上是遍历了所有methods中定义的方法，当然其中包括get，而且get方法是被’重载’的，即当app.get();的参数只有一个时候，执行的是获取变量的功能，否则，执行route组件中的route.get方法，将该路由和回调函数(即第二个参数)存储进一个栈中(后续会进一步分析)。<br>回到原来的问题，在这里，关键是看中间的</p>
+<figure class="highlight [javascript]"><pre><span class="keyword">this</span>.lazyrouter();
+</pre></figure>
+
+
+<p>我们看它的具体代码</p>
+<figure class="highlight [javascript]"><pre>app.lazyrouter = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  <span class="keyword">if</span> (!<span class="keyword">this</span>._router) {
+    <span class="keyword">this</span>._router = <span class="keyword">new</span> Router({
+      caseSensitive: <span class="keyword">this</span>.enabled(<span class="string">'case sensitive routing'</span>),
+      strict: <span class="keyword">this</span>.enabled(<span class="string">'strict routing'</span>)
+    });
+
+    <span class="keyword">this</span>._router.<span class="keyword">use</span>(query());
+    <span class="keyword">this</span>._router.<span class="keyword">use</span>(middleware.init(<span class="keyword">this</span>));
+  }
+};
+</pre></figure>
+
+
+<p>它的作用是在第一次定义路由的时候初始化路由(添加基本的路由)，注意最后一句用到了middleware模块的init方法，继续上代码</p>
+<figure class="highlight [javascript]"><pre>exports.init = <span class="function"><span class="keyword">function</span><span class="params">(app)</span></span>{
+  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">expressInit</span><span class="params">(req, res, next)</span></span>{
+    <span class="keyword">if</span> (app.enabled(<span class="string">'x-powered-by'</span>)) res.setHeader(<span class="string">'X-Powered-By'</span>, <span class="string">'Express'</span>);
+    req.res = res;
+    res.req = req;
+    req.<span class="built_in">next</span> = <span class="built_in">next</span>;
+
+    req.__proto__ = app.request;
+    res.__proto__ = app.response;
+
+    res.locals = res.locals || Object.create(null);
+
+    <span class="built_in">next</span>();
+  };
+};
+</pre></figure>
+
+
+<p>它的作用是初始化request和response，可以看到其中用到了我所疑惑app.request和app.respone，它使req和res继承自了request.js和response.js中的定义，也因此在我去掉了那两行代码后会出现res.send找不到的情况。<br>另外，定义app.response对象时反引用自身，也使得后面在response对象中能够通过this.app获得所创建的express实例。</p>
+<p>让我们回到createApplication函数，接下来是app.init();。显然，作用是初始化，做哪些工作呢？</p>
+<figure class="highlight [javascript]"><pre>app.init = <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+  <span class="keyword">this</span>.cache = {};
+  <span class="keyword">this</span>.settings = {};
+  <span class="keyword">this</span>.engines = {};
+  <span class="keyword">this</span>.defaultConfiguration();
+};
+</pre></figure>
+
+
+<p>设定了cache对象(render的时候用到)，各种setting的存储对象，engines对象(模板引擎)，最后进行默认的配置，代码有点长这里就不上了，就是做一些默认的配置。</p>
+<p>好了，createApplication函数就是这些，当然，其中略去了很多重要的问题，比如路由组件的实现方式，中间件的触发流程等，这我会在后续的总结中进行分析。</p>
+<p>最开头的官方示例中还有最后一句</p>
+<figure class="highlight [javascript]"><pre>app.<span class="keyword">listen</span>(<span class="number">3000</span>);
+</pre></figure>
+
+
+<p>代码如下</p>
+<figure class="highlight [javascript]"><pre>app.listen = <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+  <span class="keyword">var</span> server = http.createServer(<span class="keyword">this</span>);
+  <span class="keyword">return</span> server.listen.apply(server, <span class="built_in">arguments</span>);
+};
+</pre></figure>
+
+
+<p>实际上是调用了Node.js原生的http模块的CreatServer方法，<a href="http://nodejs.org/api/http.html#http_http_createserver_requestlistener" target="_blank">API文档</a>说明是</p>
+<blockquote>
+<p>http.createServer([requestListener])#<br>Returns a new web server object.</p>
+<p>The requestListener is a function which is automatically added to the ‘request’ event.</p>
+</blockquote>
+<p>方法返回的是一个web server对象，其中的参数为HTTP request事件触发后执行的函数(这里我们给的就是我们在createApplication函数中获得的app)。<br>最后，返回的web server有一个监听端口的listen方法，参数为需要监听的端口号，本示例中即为3000。</p>
+]]></content>
+    
+    
+      <category term="node" scheme="http://insideyiqi.github.io/tags/node/"/>
+    
+      <category term="express" scheme="http://insideyiqi.github.io/tags/express/"/>
+    
+      <category term="javascript" scheme="http://insideyiqi.github.io/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <link href="http://insideyiqi.github.io/2014/05/19/hello-world/"/>
+    <id>http://insideyiqi.github.io/2014/05/19/hello-world/</id>
+    <published>2014-05-19T05:29:39.000Z</published>
+    <updated>2014-05-19T16:51:52.000Z</updated>
+    <content type="html"><![CDATA[<p>Ok, I will write blogs here from now on.</p>
+]]></content>
+    
+    
+  </entry>
+  
+</feed>
