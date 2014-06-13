@@ -139,7 +139,7 @@ app.listen(<span class="number">3000</span>);
 
 
 <p>可以发现，这个就相当于express的’main’函数，其中完成了所有创建express实例所需要的动作，并在执行完毕后返回一个函数。</p>
-<p>代码的开始定义了一个函数，函数的形参req即为导入的request.js，res为导入的response.js，next为回调函数。<br>函数体只有一条语句，执行app.handle，handle方法在application.js文件中定义，此处是通过mixin导入(见下文)，handle的代码如下</p>
+<p>代码的开始定义了一个函数，函数形参req，res，next为回调函数。<br>函数体只有一条语句，执行app.handle，handle方法在application.js文件中定义，此处是通过mixin导入(见下文)，handle的代码如下</p>
 <figure class="highlight [javascript]"><pre>app.handle = <span class="function"><span class="keyword">function</span><span class="params">(req, res, done)</span> {</span>
   <span class="keyword">var</span> router = <span class="keyword">this</span>._router;
 
@@ -165,7 +165,7 @@ app.listen(<span class="number">3000</span>);
 </pre></figure>
 
 
-<p>它的作用就是将每个[req,res]对进行逐级分发，作用在每个定义好的路由及中间件上，直到最后完成返回，具体的过程我们会在后续进行分析。</p>
+<p>它的作用就是将对[req,res]进行逐级分发，作用在每个定义好的路由及中间件上，直到最后完成，具体的过程我们会在后续进行分析。</p>
 <p>然后来看看中间的两行</p>
 <figure class="highlight [javascript]"><pre><span class="keyword">mixin</span>(app, proto);
 <span class="keyword">mixin</span>(app, EventEmitter.prototype);
@@ -191,7 +191,7 @@ app.response = { <span class="strong">__proto__</span>: res, app: app };
 </pre></figure>
 
 
-<p>这里定义了app的request和response对象，使用了对象的字面量表示法，使其分别继承自req和res，并反向引用了app自身。为什么要这样做呢？这个问题我一开始想不明白，后来我就干脆把这两行代码删了，运行，当然就是报错，答案就在错误中的信息里。</p>
+<p>这里定义了app的request和response对象，使用了对象的字面量表示法，使其分别继承自req(导入的require.js)和res(导入的response.js)，并反向引用了app自身。为什么要这样做呢？这个问题我一开始想不明白，后来我就干脆把这两行代码删了，运行，当然就是报错，答案就在错误中的信息里。</p>
 <blockquote>
 <p>TypeError: Object #<ServerResponse> has no method ‘send’</p>
 </blockquote>
