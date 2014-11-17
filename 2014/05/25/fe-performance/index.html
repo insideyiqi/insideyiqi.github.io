@@ -106,22 +106,26 @@
 <p>其实，每当从任何域名请求一个资源，都会发出HTTP请求。当提到前端性能，这些请求正是主要的瓶颈所在。下面介绍的一些技巧其实很多都是基于这一点的延伸。</p>
 <h4 id="3-_从多个域名提供资源服务_增加浏览器并行下载的资源数量">3. 从多个域名提供资源服务 增加浏览器并行下载的资源数量</h4>
 <p>为了让浏览器能并行的下载更多资源，可以由不同的域名提供服务。比如，浏览器只能一次从一个域名获取两个资源，那么由两个域名提供服务意味着它可以一次性获取四个资源；三个域名意味着六个并行下载</p>
-<p>Chrome浏览器可以从</p>
-<figure class="highlight chrome://net-internals/#sockets```页面中查看最大连接数限制，在我现在的版本(34)是6，其他浏览器不一定相同，但应该都在4-6之间。"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">然而关于这还有个问题，DNS查询。每次（从一个空缓存）一个新的域名被引用，HTTP请求会受制于一个耗时的DNS查询（某个介于<span class="number">20</span>到<span class="number">120</span>毫秒之间的值），在DNS查询中，发出的请求会查询资源实际存在的地点；互联网通过<span class="literal">IP</span>地址被绑定在一起，这些地址由DNS管理的主机名引用。</div><div class="line"></div><div class="line">如果每个引用的新域名具有DNS查询的前端代价，必须确保这个代价确实是值得的。如果是一个小网站，那么由子域名提供资源可能并不值得；相比执行多个域名的DNS查询并将其并行化来说，从一个域名非并行的获取若干资源，浏览器可能更快。因此需要决定什么才是对需要优化的网站更合适的；承担查询的消耗或者只是由一个域名提供所有服务。</div><div class="line"></div><div class="line">不过有一个优化DNS查询的方法，就是使用DNS预取(DNS Prefetching)。就像这样，把需要预取的域名加在</div></pre></td></tr></table></figure>
-
-<head>
-
-<figure class="highlight 标签中"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="constant">true</span>&lt;head&gt;</div><div class="line"><span class="constant">true</span>...</div><div class="line">truetrue&lt;link <span class="variable">rel=</span><span class="string">"dns-prefetch"</span> <span class="variable">href=</span><span class="string">"//foo.bar.com"</span>&gt;</div><div class="line"><span class="constant">true</span>...</div><div class="line"><span class="constant">true</span>&lt;/head&gt;</div><div class="line"><span class="constant">true</span></div><div class="line"><span class="comment">#### 4. 使用一些CSS技巧来代替图片，不仅减少资源大小，也能降低HTTP请求数</span></div><div class="line"></div><div class="line">这里的CSS技巧，一般有四种</div><div class="line"></div><div class="line">一是通过</div></pre></td></tr></table></figure>
-
-<p>background-color</p>
-<figure class="highlight 、```border```生成图片；二是通过字符生成图片；三是通过CSS3"><figcaption><span>的```gradient```等生成图片（这个要考虑低级浏览器不兼容的问题）；四是CSS3的自定义字体(```@font-face```)生成图片。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">关于这部分的内容，在[<span class="link_label">网站性能优化之CSS无图片技术</span>](<span class="link_url">http://udc.weibo.com/2013/05/网站性能优化之css无图片技术/</span>)这篇文章中有很详细的介绍。</div><div class="line"></div><div class="line"></div><div class="line"><span class="header">#### 5. 图片随页面滚动加载</span></div><div class="line"></div><div class="line">这一点在淘宝，京东这些大型网站上都有很明显的应用。用户在打开网页后只加载首屏的图片，而后通过js监听scroll时间，让图片在进入或将要进入用户视线时才开始加载，这项技术能够在很大程度上降低对图片服务器的压力。</div><div class="line"></div><div class="line"><span class="header">#### 6. 优化CSS选择符</span></div><div class="line">我们在编写CSS时，会有很多的选择符，但不同的写法，页面在渲染时的效率是不一样的。根据匹配规则，浏览器会从右至左匹配对应的元素。比如</div></pre></td></tr></table></figure>
-
-<p>.header li a{}</p>
-<figure class="highlight ，在渲染时，浏览器会先遍历页面内所有的```a```标签，再遍历这些```a```标签谁在```li```标签内，然后再去找他们谁在```.header```下，这样效率其实很低，而且开销很大。其实我们可以对这些```a```标签直接写个类名```.header_lnk{}```，这样浏览器渲染时一下子就可以找到，避免再去翻箱倒柜。另外```.header"><figcaption><span>.header_lnk{}```也是没有必要的，直接写```.header_lnk{}```效率更高，我们为什么还要浏览器多过滤一次呢？</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">关于前端性能优化方案是个永无止境的话题，以上是一些很基础的且容易做到的，当然性能优化还有一些相对高级的问题，如</div></pre></td></tr></table></figure>
-
-<p>Repaint/Reflow```，动画优化等，这些需要专门开一个话题来说。更全面的总结，请看下面我收集的文章和网站。</p>
+<p>Chrome浏览器可以从<code>chrome://net-internals/#sockets</code>页面中查看最大连接数限制，在我现在的版本(34)是6，其他浏览器不一定相同，但应该都在4-6之间。</p>
+<p>然而关于这还有个问题，DNS查询。每次（从一个空缓存）一个新的域名被引用，HTTP请求会受制于一个耗时的DNS查询（某个介于20到120毫秒之间的值），在DNS查询中，发出的请求会查询资源实际存在的地点；互联网通过IP地址被绑定在一起，这些地址由DNS管理的主机名引用。</p>
+<p>如果每个引用的新域名具有DNS查询的前端代价，必须确保这个代价确实是值得的。如果是一个小网站，那么由子域名提供资源可能并不值得；相比执行多个域名的DNS查询并将其并行化来说，从一个域名非并行的获取若干资源，浏览器可能更快。因此需要决定什么才是对需要优化的网站更合适的；承担查询的消耗或者只是由一个域名提供所有服务。</p>
+<p>不过有一个优化DNS查询的方法，就是使用DNS预取(DNS Prefetching)。就像这样，把需要预取的域名加在<code>&lt;head&gt;</code>标签中</p>
+<pre><code>&lt;head&gt;
+<span class="keyword">...</span>
+    &lt;link rel=<span class="string">"dns-prefetch"</span> href=<span class="string">"//foo.bar.com"</span>&gt;
+<span class="keyword">...</span>
+&lt;/head&gt;
+</code></pre><h4 id="4-_使用一些CSS技巧来代替图片，不仅减少资源大小，也能降低HTTP请求数">4. 使用一些CSS技巧来代替图片，不仅减少资源大小，也能降低HTTP请求数</h4>
+<p>这里的CSS技巧，一般有四种</p>
+<p>一是通过<code>background-color</code>、<code>border</code>生成图片；二是通过字符生成图片；三是通过CSS3 的<code>gradient</code>等生成图片（这个要考虑低级浏览器不兼容的问题）；四是CSS3的自定义字体(<code>@font-face</code>)生成图片。</p>
+<p>关于这部分的内容，在<a href="http://udc.weibo.com/2013/05/网站性能优化之css无图片技术/" target="_blank" rel="external">网站性能优化之CSS无图片技术</a>这篇文章中有很详细的介绍。</p>
+<h4 id="5-_图片随页面滚动加载">5. 图片随页面滚动加载</h4>
+<p>这一点在淘宝，京东这些大型网站上都有很明显的应用。用户在打开网页后只加载首屏的图片，而后通过js监听scroll时间，让图片在进入或将要进入用户视线时才开始加载，这项技术能够在很大程度上降低对图片服务器的压力。</p>
+<h4 id="6-_优化CSS选择符">6. 优化CSS选择符</h4>
+<p>我们在编写CSS时，会有很多的选择符，但不同的写法，页面在渲染时的效率是不一样的。根据匹配规则，浏览器会从右至左匹配对应的元素。比如<code>.header li a{}</code>，在渲染时，浏览器会先遍历页面内所有的<code>a</code>标签，再遍历这些<code>a</code>标签谁在<code>li</code>标签内，然后再去找他们谁在<code>.header</code>下，这样效率其实很低，而且开销很大。其实我们可以对这些<code>a</code>标签直接写个类名<code>.header_lnk{}</code>，这样浏览器渲染时一下子就可以找到，避免再去翻箱倒柜。另外<code>.header .header_lnk{}</code>也是没有必要的，直接写<code>.header_lnk{}</code>效率更高，我们为什么还要浏览器多过滤一次呢？</p>
+<p>关于前端性能优化方案是个永无止境的话题，以上是一些很基础的且容易做到的，当然性能优化还有一些相对高级的问题，如<code>Repaint/Reflow</code>，动画优化等，这些需要专门开一个话题来说。更全面的总结，请看下面我收集的文章和网站。</p>
 <p>有关性能优化的文章收集<br><br><a href="http://csswizardry.com/2013/01/front-end-performance-for-web-designers-and-front-end-developers/" target="_blank" rel="external">Front-end performance for web designers and front-end developers</a><br><br><a href="http://dbanotes.net/web-performance.html" target="_blank" rel="external">Web 前端优化专题</a><br><br><a href="http://jankfree.org" target="_blank" rel="external">http://jankfree.org</a><br><br><a href="http://www.360ito.com/article/40.html" target="_blank" rel="external">一篇Yahoo关于网站性能优化的文章</a><br><br><a href="http://www.cnblogs.com/developersupport/p/3248695.html" target="_blank" rel="external">毫秒必争，前端网页性能最佳实践</a><br><br><a href="http://mobile.51cto.com/web-410291.htm" target="_blank" rel="external">移动网站性能优化技巧荟萃</a></p>
-</head>
+
       
     </div>
     <footer class="article-footer">
