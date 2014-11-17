@@ -1,383 +1,523 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
   
   <title>Archives | Here is YiQi.</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
-    <meta name="author" content="YiQi">
-  
-  
-  <meta content="website" property="og:type">
-<meta content="Here is YiQi." property="og:title">
-<meta content="http://insideyiqi.github.io/archives/" property="og:url">
-<meta property="og:image">
-<meta content="Here is YiQi." property="og:site_name">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Here is YiQi.">
+<meta property="og:url" content="http://insideyiqi.github.io/archives/">
+<meta property="og:site_name" content="Here is YiQi.">
 <meta property="og:description">
-<meta content="summary" name="twitter:card">
-  
-    <link rel="alternate" href="/atom.xml" title="Here is YiQi." type="application/atom+xml">
-  
-  
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-  
-  
-<script type="text/javascript">
-var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fb1ac498c0b739b72a40234a0ece3bb2d' type='text/javascript'%3E%3C/script%3E"));
-</script>
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Here is YiQi.">
+<meta name="twitter:description">
 
+  
+    <link rel="alternative" href="/atom.xml" title="Here is YiQi." type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  
 
 </head>
-
 <body>
-  <div class="wrapper">
-    <header id="header">
-  <div class="title">
-    <h1><a href="/">Here is YiQi.</a></h1>
-    <p><a href="/">Be original.</a></p>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Here is YiQi.</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Be original.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://insideyiqi.github.io"></form>
+      </div>
+    </div>
   </div>
-  <nav class="nav">
-    <ul>
-      
-        <li><a href="/">Home</a></li>
-      
-        <li><a href="/archives">Archives</a></li>
-      
-      
-        <li><a href="/atom.xml">RSS</a></li>
-      
-    </ul>
-    <div class="clearfix"></div>
-  </nav>
-  <div class="clearfix"></div>
 </header>
-    <div class="content">
-
-
-
-
+      <div class="outer">
+        <section id="main">
   
-    <article class="post">
-  <header>
-    
-      <div class="icon"></div>
-      <a href="/2014/06/11/dive-into-express-1/">
-  <time datetime="2014-06-11T14:21:11.000Z">
-    Jun 11 2014
-  </time>
+    <article id="post-body-background-color" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/06/20/body-background-color/" class="article-date">
+  <time datetime="2014-06-20T09:21:19.000Z" itemprop="datePublished">Jun 20 2014</time>
 </a>
     
+  </div>
+  <div class="article-inner">
     
+    
+      <header class="article-header">
+        
   
-    <h1 class="title"><a href="/2014/06/11/dive-into-express-1/">解读express 4.x源码(1)</a></h1>
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/06/20/body-background-color/">body的background-color问题</a>
+    </h1>
   
 
-  </header>
-  
-  <div class="entry">
+      </header>
     
-      <p>这两天仔细看了看<a href="https://github.com/visionmedia/express" target="_blank">express</a>的源码，对其的整个实现有了较清晰的认识，所以想总结一下写出来，如果有什么不对的地方，望指出。</p>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在有一次瞎折腾的时候，发现了一个奇怪的问题，在给<code>body</code>标签设置<code>margin</code>值并设置<code>background-color</code>时，<code>background-color</code>竟会扩散到<code>margin</code>部分作用，demo如下：</p>
+<p></p><p data-height="268" data-theme-id="0" data-slug-hash="ZYEoWL" data-default-tab="result" data-user="insideyiqi" class="codepen">See the Pen <a href="http://codepen.io/insideyiqi/pen/ZYEoWL/" target="_blank" rel="external">body有margin bg-c扩散 </a> by YiQi (<a href="http://codepen.io/insideyiqi" target="_blank" rel="external">@insideyiqi</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<p>然后当我在给<code>html</code>标签也设置<code>background-color</code>后，才算恢复了”正常”。</p>
+<p></p><p data-height="256" data-theme-id="0" data-slug-hash="ZYEope" data-default-tab="result" data-user="insideyiqi" class="codepen">See the Pen <a href="http://codepen.io/insideyiqi/pen/ZYEope/" target="_blank" rel="external">body有margin html有bgc</a> by YiQi (<a href="http://codepen.io/insideyiqi" target="_blank" rel="external">@insideyiqi</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<p>这勾起了我的好奇心，google之，可是没有找到一个好的解释，倒是stackoverflow上有一些类似的提问，比如这个<a href="http://stackoverflow.com/questions/10048800/css-background-color-only-inside-the-margin" target="_blank" rel="external">CSS: background-color only inside the margin</a>，回答者的意思基本都是 要避免这个问题 要不就给<code>html</code>加<code>background-color</code> 要不就不要给<code>body</code>设<code>margin</code>，而是加一个<code>div</code>，给这个<code>div</code>加<code>margin</code>。但貌似找不到解释这个现象的回答，没办法，那就自己翻标准去吧。</p>
+<p><code>W3C</code>给<code>body</code>和<code>html</code>标签的定义是这样的</p>
+<p><a href="http://www.w3.org/community/webed/wiki/HTML/Elements/body" target="_blank" rel="external">HTML/Elements/body</a></p>
+<blockquote>
+<p>The &lt;body&gt; element represents the main content of the document.</p>
+</blockquote>
+<p><a href="http://www.w3.org/community/webed/wiki/HTML/Elements/html" target="_blank" rel="external">HTML/Elements/html</a></p>
+<blockquote>
+<p>The &lt;html&gt; element represents the root of HTML and XHTML documents. Any subsequent elements are the children of this root element.</p>
+</blockquote>
+<p>好像有点无关痛痒，但我有了个猜想，会不会是这样，当<code>html</code>标签没有设置什么样式的时候，<code>body</code>就成了整个浏览器窗口的全部，因此<code>body</code>的背景色也就被当做了整个页面的背景色。但这也就是猜想，无从求证，我也就先记下了这个问题，暂且作罢。</p>
+<p>但过了两天在搜索的过程中找到了一篇张大神的<a href="http://www.zhangxinxu.com/wordpress/2009/09/对html与body的一些研究与理解/" target="_blank" rel="external">博文</a>，里面谈到了我的这个问题，然后他做出了一个类似的推论</p>
+<blockquote>
+<p>一般情况下，我们css控制的最高结点就是body，例如设置：body{background:#069;}则浏览器界面就是完全的#068的背景色。这里看上去是body标签下的背景色起作用了，我到不这么认为，这里不是body的background起作用，而是body作为一个根结点起作用了，html标签未被激活，body但当类似于根结点的结点，其background背景色被浏览器俘获，浏览器界面背景色为background的背景色，以上是我的推论，这种推论不是我凭空想象出来的，而是有一定的根据的……</p>
+</blockquote>
+<p>博文里对这个推论做了一些实验佐证，但貌似也没有从标准里找到依据，但是这篇博文还介绍了很多关于<code>html</code>和<code>body</code>的相关事情，开了我的眼界，在此推荐一下。</p>
+<p>相关阅读:<br><a href="http://www.zhangxinxu.com/wordpress/?p=259" target="_blank" rel="external">对html与body的一些研究与理解</a></p>
+<p>P.S. 其实要解决这些疑问，最直接粗暴的方法就是读浏览器渲染引擎的源码，只是。。好吧 C/C++已经许久没接触了 把这件事提上学习日程，webkit源码。。等我吧</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://insideyiqi.github.io/2014/06/20/body-background-color/" data-id="2wnfd3bn9fe7ai51" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-dive-into-express-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/06/11/dive-into-express-1/" class="article-date">
+  <time datetime="2014-06-11T14:21:11.000Z" itemprop="datePublished">Jun 11 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/06/11/dive-into-express-1/">解读express 4.x源码(1)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这两天仔细看了看<a href="https://github.com/visionmedia/express" target="_blank" rel="external">express</a>的源码，对其的整个实现有了较清晰的认识，所以想总结一下写出来，如果有什么不对的地方，望指出。</p>
 <p>这是第一篇，首先介绍一个最简单的express应用运行过程，初步分析了其在源码中的具体实现，还没有涉及到一些比较重要的内容比如路由组件的实现方式，中间件的触发流程等。在后续的总结中，我会继续分析，并准备将一些值得分析的public api逐一解读，也会涉及一些private api。</p>
 <h1 id="基于的版本">基于的版本</h1>
 <hr>
-<p>截止写这篇文章时目前最新的tags是4.4.2。我是直接看的master分支。express的commits提交非常频繁，但总体的实现思路应该不会有大的变化。express在4.x后做了较大的改动，相对于3.x最大的地方在于不再依赖connect，并移除了几乎所有的内置中间件，具体的变动请看官方wiki的 <a href="https://github.com/visionmedia/express/wiki/Migrating-from-3.x-to-4.x" target="_blank">Migrating from 3.x to 4.x</a> 及 <a href="https://github.com/visionmedia/express/wiki/New-features-in-4.x" target="_blank">New features in 4.x</a>。</p>
+<p>截止写这篇文章时目前最新的tags是4.4.2。我是直接看的master分支。express的commits提交非常频繁，但总体的实现思路应该不会有大的变化。express在4.x后做了较大的改动，相对于3.x最大的地方在于不再依赖connect，并移除了几乎所有的内置中间件，具体的变动请看官方wiki的 <a href="https://github.com/visionmedia/express/wiki/Migrating-from-3.x-to-4.x" target="_blank" rel="external">Migrating from 3.x to 4.x</a> 及 <a href="https://github.com/visionmedia/express/wiki/New-features-in-4.x" target="_blank" rel="external">New features in 4.x</a>。</p>
 <h1 id="从一个官方示例开始">从一个官方示例开始</h1>
 <hr>
-<figure class="highlight [javascript]"><pre><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);
-<span class="keyword">var</span> app = express();
-
-app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span><span class="params">(req, res)</span>{</span>
-  res.send(<span class="string">'Hello World'</span>);
-});
-
-app.listen(<span class="number">3000</span>);
-</pre></figure>
-
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</div><div class="line"><span class="keyword">var</span> app = express();</div><div class="line"></div><div class="line">app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span><span class="params">(req, res)</span></span>{</div><div class="line">  res.send(<span class="string">'Hello World'</span>);</div><div class="line">});</div><div class="line"></div><div class="line">app.listen(<span class="number">3000</span>);</div></pre></td></tr></table></figure>
 
 <p>这是官方给出的一个简单程序，运行后访问localhost:3000显示Hello World。下面我们就来仔细看看这段程序。</p>
 <p>首先第一行</p>
-<figure class="highlight [javascript]"><pre><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);
-</pre></figure>
+<figure class="highlight [javascript]"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</div></pre></td></tr></table></figure>
 
-
-<p>这是典型的Node.js模块载入代码，关于Node.js的模块载入机制，不了解的同学建议看看朴灵的<a href="http://www.infoq.com/cn/articles/nodejs-module-mechanism" target="_blank">深入Node.js的模块机制</a>，非常有帮助。</p>
+<p>这是典型的Node.js模块载入代码，关于Node.js的模块载入机制，不了解的同学建议看看朴灵的<a href="http://www.infoq.com/cn/articles/nodejs-module-mechanism" target="_blank" rel="external">深入Node.js的模块机制</a>，非常有帮助。</p>
 <p>第一行载入了express框架，我们来看源代码中的index.js。</p>
-<figure class="highlight [javascript]"><pre><span class="built_in">module</span>.<span class="built_in">exports</span> = <span class="built_in">require</span>(<span class="string">'./lib/express'</span>);
-</pre></figure>
-
+<figure class="highlight [javascript]"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = <span class="built_in">require</span>(<span class="string">'./lib/express'</span>);</div></pre></td></tr></table></figure>
 
 <p>好吧，还要继续require，我们看./lib/express.js</p>
-<figure class="highlight [javascript]"><pre><span class="built_in">exports</span> = <span class="built_in">module</span>.<span class="built_in">exports</span> = createApplication;
-</pre></figure>
-
+<figure class="highlight [javascript]"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">exports =</span> module.<span class="variable">exports =</span> createApplication;</div></pre></td></tr></table></figure>
 
 <p>从这里我们可以看出，程序的第一行express最后实际是这个createApplication函数。第二行则是运行了这个函数，然后返回值赋给了app。该函数代码如下</p>
-<figure class="highlight [javascript]"><pre><span class="keyword">var</span> EventEmitter = <span class="built_in">require</span>(<span class="string">'events'</span>).EventEmitter;
-<span class="keyword">var</span> mixin = <span class="built_in">require</span>(<span class="string">'utils-merge'</span>);
-<span class="keyword">var</span> proto = <span class="built_in">require</span>(<span class="string">'./application'</span>);
-<span class="keyword">var</span> req = <span class="built_in">require</span>(<span class="string">'./request'</span>);
-<span class="keyword">var</span> res = <span class="built_in">require</span>(<span class="string">'./response'</span>);
-
-<span class="function"><span class="keyword">function</span> <span class="title">createApplication</span><span class="params">()</span> {</span>
-  <span class="keyword">var</span> app = <span class="function"><span class="keyword">function</span><span class="params">(req, res, next)</span> {</span>
-    app.handle(req, res, next);
-  };
-
-  mixin(app, proto);
-  mixin(app, EventEmitter.prototype);
-
-  app.request = { __proto__: req, app: app };
-  app.response = { __proto__: res, app: app };
-  app.init();
-  <span class="keyword">return</span> app;
-}
-</pre></figure>
-
+<figure class="highlight [javascript]"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> EventEmitter = <span class="built_in">require</span>(<span class="string">'events'</span>).EventEmitter;</div><div class="line"><span class="keyword">var</span> mixin = <span class="built_in">require</span>(<span class="string">'utils-merge'</span>);</div><div class="line"><span class="keyword">var</span> proto = <span class="built_in">require</span>(<span class="string">'./application'</span>);</div><div class="line"><span class="keyword">var</span> req = <span class="built_in">require</span>(<span class="string">'./request'</span>);</div><div class="line"><span class="keyword">var</span> res = <span class="built_in">require</span>(<span class="string">'./response'</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">createApplication</span><span class="params">()</span> </span>{</div><div class="line">  <span class="keyword">var</span> app = <span class="function"><span class="keyword">function</span><span class="params">(req, res, next)</span> </span>{</div><div class="line">    app.handle(req, res, next);</div><div class="line">  };</div><div class="line"></div><div class="line">  mixin(app, proto);</div><div class="line">  mixin(app, EventEmitter.prototype);</div><div class="line"></div><div class="line">  app.request = { __proto__: req, app: app };</div><div class="line">  app.response = { __proto__: res, app: app };</div><div class="line">  app.init();</div><div class="line">  <span class="keyword">return</span> app;</div><div class="line">}</div></pre></td></tr></table></figure>
 
 <p>可以发现，这个就相当于express的’main’函数，其中完成了所有创建express实例所需要的动作，并在执行完毕后返回一个函数。</p>
 <p>代码的开始定义了一个函数，函数形参req，res，next为回调函数。<br>函数体只有一条语句，执行app.handle，handle方法在application.js文件中定义，此处是通过mixin导入(见下文)，handle的代码如下</p>
-<figure class="highlight [javascript]"><pre>app.handle = <span class="function"><span class="keyword">function</span><span class="params">(req, res, done)</span> {</span>
-  <span class="keyword">var</span> router = <span class="keyword">this</span>._router;
-
-  <span class="comment">// final handler</span>
-  done = done || finalhandler(req, res, {
-    env: <span class="keyword">this</span>.get(<span class="string">'env'</span>),
-    onerror: logerror.bind(<span class="keyword">this</span>)
-  });
-
-  <span class="comment">// no routes</span>
-  <span class="keyword">if</span> (!router) {
-    debug(<span class="string">'no routes defined on app'</span>);
-
-    <span class="comment">// generate error    </span>
-    <span class="keyword">var</span> err = <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'No routes or middlewares have been defined'</span>);
-    err.status = <span class="number">500</span>;
-    done(err);
-    <span class="keyword">return</span>;
-  }
-
-  router.handle(req, res, done);
-};
-</pre></figure>
-
+<figure class="highlight [javascript]"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">app.handle = <span class="function"><span class="keyword">function</span><span class="params">(req, res, done)</span> </span>{</div><div class="line">  <span class="keyword">var</span> router = <span class="keyword">this</span>._router;</div><div class="line"></div><div class="line">  <span class="comment">// final handler</span></div><div class="line">  done = done || finalhandler(req, res, {</div><div class="line">    env: <span class="keyword">this</span>.get(<span class="string">'env'</span>),</div><div class="line">    onerror: logerror.bind(<span class="keyword">this</span>)</div><div class="line">  });</div><div class="line"></div><div class="line">  <span class="comment">// no routes</span></div><div class="line">  <span class="keyword">if</span> (!router) {</div><div class="line">    debug(<span class="string">'no routes defined on app'</span>);</div><div class="line"></div><div class="line">    <span class="comment">// generate error    </span></div><div class="line">    <span class="keyword">var</span> err = <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'No routes or middlewares have been defined'</span>);</div><div class="line">    err.status = <span class="number">500</span>;</div><div class="line">    done(err);</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">  }</div><div class="line"></div><div class="line">  router.handle(req, res, done);</div><div class="line">};</div></pre></td></tr></table></figure>
 
 <p>它的作用就是将对[req,res]进行逐级分发，作用在每个定义好的路由及中间件上，直到最后完成，具体的过程我们会在后续进行分析。</p>
 <p>然后来看看中间的两行</p>
-<figure class="highlight [javascript]"><pre><span class="keyword">mixin</span>(app, proto);
-<span class="keyword">mixin</span>(app, EventEmitter.prototype);
-</pre></figure>
+<figure class="highlight [javascript]"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">mixin</span>(app, proto);</div><div class="line"><span class="keyword">mixin</span>(app, <span class="type">EventEmitter</span>.prototype);</div></pre></td></tr></table></figure>
 
+<p>mixin是在头部的require处载入的<a href="https://www.npmjs.org/package/utils-merge" target="_blank" rel="external">utils-merge</a>模块，它的<a href="https://github.com/jaredhanson/utils-merge" target="_blank" rel="external">代码</a>如下</p>
+<figure class="highlight [javascript]"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">exports = <span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span><span class="params">(a, b)</span></span>{</div><div class="line">  <span class="keyword">if</span> (a && b) {</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> b) {</div><div class="line">      a[key] = b[key];</div><div class="line">    }</div><div class="line">  }</div><div class="line">  <span class="keyword">return</span> a;</div><div class="line">};</div></pre></td></tr></table></figure>
 
-<p>mixin是在头部的require处载入的<a href="https://www.npmjs.org/package/utils-merge" target="_blank">utils-merge</a>模块，它的<a href="https://github.com/jaredhanson/utils-merge" target="_blank">代码</a>如下</p>
-<figure class="highlight [javascript]"><pre><span class="built_in">exports</span> = <span class="built_in">module</span>.<span class="built_in">exports</span> = <span class="reserved">function</span>(a, b){
-  <span class="keyword">if</span> (a && b) {
-    <span class="keyword">for</span> (<span class="reserved">var</span> key <span class="keyword">in</span> b) {
-      a[key] = b[key];
-    }
-  }
-  <span class="keyword">return</span> a;
-};
-</pre></figure>
-
-
-<p>很明显，mixin(app, proto);的作用即是将proto中所有的property全部导入进app，proto在头部的require处载入的是./lib/application.js文件，其中定义了大部分express的public api，如app.set,app.get,app.use…详见官方的<a href="http://expressjs.com/4x/api.html" target="_blank">API文档</a>。<br>mixin(app, EventEmitter.prototype);则将Node.js的EventEmitter中的原型方法全部导入了app。</p>
+<p>很明显，mixin(app, proto);的作用即是将proto中所有的property全部导入进app，proto在头部的require处载入的是./lib/application.js文件，其中定义了大部分express的public api，如app.set,app.get,app.use…详见官方的<a href="http://expressjs.com/4x/api.html" target="_blank" rel="external">API文档</a>。<br>mixin(app, EventEmitter.prototype);则将Node.js的EventEmitter中的原型方法全部导入了app。</p>
 <p>再来看接下来的两行</p>
-<figure class="highlight [javascript]"><pre>app.request = { <span class="strong">__proto__</span>: req, app: app };
-app.response = { <span class="strong">__proto__</span>: res, app: app };
-</pre></figure>
-
+<figure class="highlight [javascript]"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">app.request = { <span class="strong">__proto__</span>: req, app: app };</div><div class="line">app.response = { <span class="strong">__proto__</span>: res, app: app };</div></pre></td></tr></table></figure>
 
 <p>这里定义了app的request和response对象，使用了对象的字面量表示法，使其分别继承自req(导入的require.js)和res(导入的response.js)，并反向引用了app自身。为什么要这样做呢？这个问题我一开始想不明白，后来我就干脆把这两行代码删了，运行，当然就是报错，答案就在错误中的信息里。</p>
 <blockquote>
-<p>TypeError: Object #<ServerResponse> has no method ‘send’</p>
+<p>TypeError: Object #<serverresponse> has no method ‘send’</serverresponse></p>
 </blockquote>
 <p>显示找不到’send’方法，为什么呢？首先我们从app.get()方法看起，不熟悉的人会找不到它在源码中的位置，其实它在application.js中是这样的</p>
-<figure class="highlight [javascript]"><pre>methods.forEach(<span class="function"><span class="keyword">function</span><span class="params">(method)</span>{</span>
-  app[method] = <span class="function"><span class="keyword">function</span><span class="params">(path)</span>{</span>
-    <span class="keyword">if</span> (<span class="string">'get'</span> == method && <span class="number">1</span> == <span class="built_in">arguments</span>.length) <span class="keyword">return</span> <span class="keyword">this</span>.set(path);
+<figure class="highlight [javascript]"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">methods.forEach(function(<span class="keyword">method</span>){</div><div class="line">  app[<span class="keyword">method</span>] = function(path){</div><div class="line">    <span class="keyword">if</span> ('get' == <span class="keyword">method</span> && <span class="number">1</span> == arguments.length) <span class="keyword">return</span> this.<span class="type">set</span>(path);</div><div class="line"></div><div class="line">    this.lazyrouter();</div><div class="line"></div><div class="line">    <span class="keyword">var</span> route = this._router.route(path);</div><div class="line">    route[<span class="keyword">method</span>].apply(route, [].slice.call(arguments, <span class="number">1</span>));</div><div class="line">    <span class="keyword">return</span> this;</div><div class="line">  };</div><div class="line">});</div></pre></td></tr></table></figure>
 
-    <span class="keyword">this</span>.lazyrouter();
-
-    <span class="keyword">var</span> route = <span class="keyword">this</span>._router.route(path);
-    route[method].apply(route, [].slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>));
-    <span class="keyword">return</span> <span class="keyword">this</span>;
-  };
-});
-</pre></figure>
-
-
-<p>methods在顶部模块引入中定义，其实是一个包含各个HTTP请求方法的数组，具体代码在<a href="https://github.com/visionmedia/node-methods/blob/master/index.js" target="_blank">这里</a>。<br>从上面的代码中我们可以看到，这里实际上是遍历了所有methods中定义的方法，当然其中包括get，而且get方法是被’重载’的，即当app.get();的参数只有一个时候，执行的是获取变量的功能，否则，执行route组件中的route.get方法，将该路由和回调函数(即第二个参数)存储进一个栈中(后续会进一步分析)。<br>回到原来的问题，在这里，关键是看中间的</p>
-<figure class="highlight [javascript]"><pre><span class="keyword">this</span>.lazyrouter();
-</pre></figure>
-
+<p>methods在顶部模块引入中定义，其实是一个包含各个HTTP请求方法的数组，具体代码在<a href="https://github.com/visionmedia/node-methods/blob/master/index.js" target="_blank" rel="external">这里</a>。<br>从上面的代码中我们可以看到，这里实际上是遍历了所有methods中定义的方法，当然其中包括get，而且get方法是被’重载’的，即当app.get();的参数只有一个时候，执行的是获取变量的功能，否则，执行route组件中的route.get方法，将该路由和回调函数(即第二个参数)存储进一个栈中(后续会进一步分析)。<br>回到原来的问题，在这里，关键是看中间的</p>
+<figure class="highlight [javascript]"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">this</span>.lazyrouter();</div></pre></td></tr></table></figure>
 
 <p>我们看它的具体代码</p>
-<figure class="highlight [javascript]"><pre>app.lazyrouter = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-  <span class="keyword">if</span> (!<span class="keyword">this</span>._router) {
-    <span class="keyword">this</span>._router = <span class="keyword">new</span> Router({
-      caseSensitive: <span class="keyword">this</span>.enabled(<span class="string">'case sensitive routing'</span>),
-      strict: <span class="keyword">this</span>.enabled(<span class="string">'strict routing'</span>)
-    });
-
-    <span class="keyword">this</span>._router.<span class="keyword">use</span>(query());
-    <span class="keyword">this</span>._router.<span class="keyword">use</span>(middleware.init(<span class="keyword">this</span>));
-  }
-};
-</pre></figure>
-
+<figure class="highlight [javascript]"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">app.lazyrouter = <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</div><div class="line">  <span class="keyword">if</span> (!<span class="keyword">this</span>._router) {</div><div class="line">    <span class="keyword">this</span>._router = <span class="keyword">new</span> Router({</div><div class="line">      caseSensitive: <span class="keyword">this</span>.enabled(<span class="string">'case sensitive routing'</span>),</div><div class="line">      strict: <span class="keyword">this</span>.enabled(<span class="string">'strict routing'</span>)</div><div class="line">    });</div><div class="line"></div><div class="line">    <span class="keyword">this</span>._router.<span class="keyword">use</span>(query());</div><div class="line">    <span class="keyword">this</span>._router.<span class="keyword">use</span>(middleware.init(<span class="keyword">this</span>));</div><div class="line">  }</div><div class="line">};</div></pre></td></tr></table></figure>
 
 <p>它的作用是在第一次定义路由的时候初始化路由(添加基本的路由)，注意最后一句用到了middleware模块的init方法，继续上代码</p>
-<figure class="highlight [javascript]"><pre>exports.init = <span class="function"><span class="keyword">function</span><span class="params">(app)</span></span>{
-  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">expressInit</span><span class="params">(req, res, next)</span></span>{
-    <span class="keyword">if</span> (app.enabled(<span class="string">'x-powered-by'</span>)) res.setHeader(<span class="string">'X-Powered-By'</span>, <span class="string">'Express'</span>);
-    req.res = res;
-    res.req = req;
-    req.<span class="built_in">next</span> = <span class="built_in">next</span>;
-
-    req.__proto__ = app.request;
-    res.__proto__ = app.response;
-
-    res.locals = res.locals || Object.create(null);
-
-    <span class="built_in">next</span>();
-  };
-};
-</pre></figure>
-
+<figure class="highlight [javascript]"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">exports.init = <span class="function"><span class="keyword">function</span><span class="params">(app)</span>{</span></div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">expressInit</span><span class="params">(req, res, next)</span>{</span></div><div class="line">    <span class="keyword">if</span> (app.enabled(<span class="string">'x-powered-by'</span>)) <span class="keyword">res</span>.setHeader(<span class="string">'X-Powered-By'</span>, <span class="string">'Express'</span>);</div><div class="line">    req.<span class="keyword">res</span> = <span class="keyword">res</span>;</div><div class="line">    <span class="keyword">res</span>.req = req;</div><div class="line">    req.<span class="keyword">next</span> = <span class="keyword">next</span>;</div><div class="line"></div><div class="line">    req.__proto__ = app.request;</div><div class="line">    <span class="keyword">res</span>.__proto__ = app.response;</div><div class="line"></div><div class="line">    <span class="keyword">res</span>.locals = <span class="keyword">res</span>.locals || Object.create(null);</div><div class="line"></div><div class="line">    <span class="keyword">next</span>();</div><div class="line">  };</div><div class="line">};</div></pre></td></tr></table></figure>
 
 <p>它的作用是初始化request和response，可以看到其中用到了我所疑惑app.request和app.respone，它使req和res继承自了request.js和response.js中的定义，也因此在我去掉了那两行代码后会出现res.send找不到的情况。<br>另外，定义app.response对象时反引用自身，也使得后面在response对象中能够通过this.app获得所创建的express实例。</p>
 <p>让我们回到createApplication函数，接下来是app.init();。显然，作用是初始化，做哪些工作呢？</p>
-<figure class="highlight [javascript]"><pre>app.init = <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
-  <span class="keyword">this</span>.cache = {};
-  <span class="keyword">this</span>.settings = {};
-  <span class="keyword">this</span>.engines = {};
-  <span class="keyword">this</span>.defaultConfiguration();
-};
-</pre></figure>
-
+<figure class="highlight [javascript]"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">app.init = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</div><div class="line">  <span class="keyword">this</span>.cache = {};</div><div class="line">  <span class="keyword">this</span>.settings = {};</div><div class="line">  <span class="keyword">this</span>.engines = {};</div><div class="line">  <span class="keyword">this</span>.defaultConfiguration();</div><div class="line">};</div></pre></td></tr></table></figure>
 
 <p>设定了cache对象(render的时候用到)，各种setting的存储对象，engines对象(模板引擎)，最后进行默认的配置，代码有点长这里就不上了，就是做一些默认的配置。</p>
 <p>好了，createApplication函数就是这些，当然，其中略去了很多重要的问题，比如路由组件的实现方式，中间件的触发流程等，这我会在后续的总结中进行分析。</p>
 <p>最开头的官方示例中还有最后一句</p>
-<figure class="highlight [javascript]"><pre>app.<span class="keyword">listen</span>(<span class="number">3000</span>);
-</pre></figure>
-
+<figure class="highlight [javascript]"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">app.<span class="keyword">listen</span>(<span class="number">3000</span>);</div></pre></td></tr></table></figure>
 
 <p>代码如下</p>
-<figure class="highlight [javascript]"><pre>app.listen = <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
-  <span class="keyword">var</span> server = http.createServer(<span class="keyword">this</span>);
-  <span class="keyword">return</span> server.listen.apply(server, <span class="built_in">arguments</span>);
-};
-</pre></figure>
+<figure class="highlight [javascript]"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">app.listen = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{</div><div class="line">  <span class="keyword">var</span> server = http.createServer(<span class="keyword">this</span>);</div><div class="line">  <span class="keyword">return</span> server.listen.apply(server, <span class="built_in">arguments</span>);</div><div class="line">};</div></pre></td></tr></table></figure>
 
-
-<p>实际上是调用了Node.js原生的http模块的CreatServer方法，<a href="http://nodejs.org/api/http.html#http_http_createserver_requestlistener" target="_blank">API文档</a>说明是</p>
+<p>实际上是调用了Node.js原生的http模块的CreatServer方法，<a href="http://nodejs.org/api/http.html#http_http_createserver_requestlistener" target="_blank" rel="external">API文档</a>说明是</p>
 <blockquote>
 <p>http.createServer([requestListener])#<br>Returns a new web server object.</p>
 <p>The requestListener is a function which is automatically added to the ‘request’ event.</p>
 </blockquote>
 <p>方法返回的是一个web server对象，其中的参数为HTTP request事件触发后执行的函数(这里我们给的就是我们在createApplication函数中获得的app)。<br>最后，返回的web server有一个监听端口的listen方法，参数为需要监听的端口号，本示例中即为3000。</p>
 
-    
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://insideyiqi.github.io/2014/06/11/dive-into-express-1/" data-id="558p6fq74takg49o" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Express/">Express</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
+
+    </footer>
   </div>
-  <footer class="end-sep">
-    
-      
-      
-    
-    <div class="clearfix"></div>
-  </footer>
+  
 </article>
 
 
   
-    <article class="post">
-  <header>
-    
-      <div class="icon"></div>
-      <a href="/2014/05/19/hello-world/">
-  <time datetime="2014-05-19T05:29:39.000Z">
-    May 19 2014
-  </time>
+    <article id="post-fe-performance" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/05/25/fe-performance/" class="article-date">
+  <time datetime="2014-05-25T15:19:11.000Z" itemprop="datePublished">May 25 2014</time>
 </a>
     
-    
-  
-    <h1 class="title"><a href="/2014/05/19/hello-world/">Hello World</a></h1>
-  
-
-  </header>
-  
-  <div class="entry">
-    
-      <p>Ok, I will write blogs here from now on.</p>
-
-    
   </div>
-  <footer class="end-sep">
+  <div class="article-inner">
     
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/05/25/fe-performance/">前端基本性能优化tips</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这几天在关注性能优化相关的主题，下面是总结的一些最基本的要点。</p>
+<h4 id="1-_顶部的Styles,_底部的scripts">1. 顶部的Styles, 底部的scripts</h4>
+<h4 id="2-_尽可能地减少HTTP请求">2. 尽可能地减少HTTP请求</h4>
+<p>比如合并静态文件，使用CSSSprites、使用data: URL scheme将图片数据写入到HTML或CSS文件中等都是可以达到这一目的。</p>
+<p>其实，每当从任何域名请求一个资源，都会发出HTTP请求。当提到前端性能，这些请求正是主要的瓶颈所在。下面介绍的一些技巧其实很多都是基于这一点的延伸。</p>
+<h4 id="3-_从多个域名提供资源服务_增加浏览器并行下载的资源数量">3. 从多个域名提供资源服务 增加浏览器并行下载的资源数量</h4>
+<p>为了让浏览器能并行的下载更多资源，可以由不同的域名提供服务。比如，浏览器只能一次从一个域名获取两个资源，那么由两个域名提供服务意味着它可以一次性获取四个资源；三个域名意味着六个并行下载</p>
+<p>Chrome浏览器可以从</p>
+<figure class="highlight chrome://net-internals/#sockets```页面中查看最大连接数限制，在我现在的版本(34)是6，其他浏览器不一定相同，但应该都在4-6之间。"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">然而关于这还有个问题，DNS查询。每次（从一个空缓存）一个新的域名被引用，HTTP请求会受制于一个耗时的DNS查询（某个介于<span class="number">20</span>到<span class="number">120</span>毫秒之间的值），在DNS查询中，发出的请求会查询资源实际存在的地点；互联网通过<span class="literal">IP</span>地址被绑定在一起，这些地址由DNS管理的主机名引用。</div><div class="line"></div><div class="line">如果每个引用的新域名具有DNS查询的前端代价，必须确保这个代价确实是值得的。如果是一个小网站，那么由子域名提供资源可能并不值得；相比执行多个域名的DNS查询并将其并行化来说，从一个域名非并行的获取若干资源，浏览器可能更快。因此需要决定什么才是对需要优化的网站更合适的；承担查询的消耗或者只是由一个域名提供所有服务。</div><div class="line"></div><div class="line">不过有一个优化DNS查询的方法，就是使用DNS预取(DNS Prefetching)。就像这样，把需要预取的域名加在</div></pre></td></tr></table></figure>
+
+<head>
+
+<figure class="highlight 标签中"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="constant">true</span>&lt;head&gt;</div><div class="line"><span class="constant">true</span>...</div><div class="line">truetrue&lt;link <span class="variable">rel=</span><span class="string">"dns-prefetch"</span> <span class="variable">href=</span><span class="string">"//foo.bar.com"</span>&gt;</div><div class="line"><span class="constant">true</span>...</div><div class="line"><span class="constant">true</span>&lt;/head&gt;</div><div class="line"><span class="constant">true</span></div><div class="line"><span class="comment">#### 4. 使用一些CSS技巧来代替图片，不仅减少资源大小，也能降低HTTP请求数</span></div><div class="line"></div><div class="line">这里的CSS技巧，一般有四种</div><div class="line"></div><div class="line">一是通过</div></pre></td></tr></table></figure>
+
+<p>background-color</p>
+<figure class="highlight 、```border```生成图片；二是通过字符生成图片；三是通过CSS3"><figcaption><span>的```gradient```等生成图片（这个要考虑低级浏览器不兼容的问题）；四是CSS3的自定义字体(```@font-face```)生成图片。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">关于这部分的内容，在[<span class="link_label">网站性能优化之CSS无图片技术</span>](<span class="link_url">http://udc.weibo.com/2013/05/网站性能优化之css无图片技术/</span>)这篇文章中有很详细的介绍。</div><div class="line"></div><div class="line"></div><div class="line"><span class="header">#### 5. 图片随页面滚动加载</span></div><div class="line"></div><div class="line">这一点在淘宝，京东这些大型网站上都有很明显的应用。用户在打开网页后只加载首屏的图片，而后通过js监听scroll时间，让图片在进入或将要进入用户视线时才开始加载，这项技术能够在很大程度上降低对图片服务器的压力。</div><div class="line"></div><div class="line"><span class="header">#### 6. 优化CSS选择符</span></div><div class="line">我们在编写CSS时，会有很多的选择符，但不同的写法，页面在渲染时的效率是不一样的。根据匹配规则，浏览器会从右至左匹配对应的元素。比如</div></pre></td></tr></table></figure>
+
+<p>.header li a{}</p>
+<figure class="highlight ，在渲染时，浏览器会先遍历页面内所有的```a```标签，再遍历这些```a```标签谁在```li```标签内，然后再去找他们谁在```.header```下，这样效率其实很低，而且开销很大。其实我们可以对这些```a```标签直接写个类名```.header_lnk{}```，这样浏览器渲染时一下子就可以找到，避免再去翻箱倒柜。另外```.header"><figcaption><span>.header_lnk{}```也是没有必要的，直接写```.header_lnk{}```效率更高，我们为什么还要浏览器多过滤一次呢？</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">关于前端性能优化方案是个永无止境的话题，以上是一些很基础的且容易做到的，当然性能优化还有一些相对高级的问题，如</div></pre></td></tr></table></figure>
+
+<p>Repaint/Reflow```，动画优化等，这些需要专门开一个话题来说。更全面的总结，请看下面我收集的文章和网站。</p>
+<p>有关性能优化的文章收集<br><br><a href="http://csswizardry.com/2013/01/front-end-performance-for-web-designers-and-front-end-developers/" target="_blank" rel="external">Front-end performance for web designers and front-end developers</a><br><br><a href="http://dbanotes.net/web-performance.html" target="_blank" rel="external">Web 前端优化专题</a><br><br><a href="http://jankfree.org" target="_blank" rel="external">http://jankfree.org</a><br><br><a href="http://www.360ito.com/article/40.html" target="_blank" rel="external">一篇Yahoo关于网站性能优化的文章</a><br><br><a href="http://www.cnblogs.com/developersupport/p/3248695.html" target="_blank" rel="external">毫秒必争，前端网页性能最佳实践</a><br><br><a href="http://mobile.51cto.com/web-410291.htm" target="_blank" rel="external">移动网站性能优化技巧荟萃</a></p>
+</head>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://insideyiqi.github.io/2014/05/25/fe-performance/" data-id="royto2zrooob8p7q" class="article-share-link">Share</a>
       
       
-    
-    <div class="clearfix"></div>
-  </footer>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
 </article>
 
 
   
-
-  <nav id="pagination">
-  
-  
-  <div class="clearfix"></div>
-</nav>
-
-</div>
+    <article id="post-space-problem" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/05/05/space-problem/" class="article-date">
+  <time datetime="2014-05-05T13:20:01.000Z" itemprop="datePublished">May 5 2014</time>
+</a>
+    
   </div>
-  <footer id="footer"><div class="copyright">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-  &copy; 2014 <a href="/">YiQi</a>
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/05/05/space-problem/">各种「间距」问题的总结</a>
+    </h1>
   
-</div>
-<div class="theme-copyright">
-  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
-   | 
-  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
-</div>
-<div class="clearfix"></div></footer>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-<script src="/js/scale.fix.js"></script>
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在使用CSS构建页面过程中，有时候会遇到一些莫名的”间距”，让人摸不着头脑，不知道其产生的原理，也不知道该如何消除它，这篇文章就是我所遇到的”间距”问题的总结，随着我遇到的种类增多不断更新。</p>
+<h2 id="一、_display_属性值设为_inline-block_的间距">一、 display 属性值设为 inline-block 的间距</h2>
+<hr>
+<p>在将一系列的<code>block</code>或<code>inline</code>元素设为<code>display:inline-block</code>后，两个元素会在水平方向产生间距，比如常用来做导航的<code>ul</code>列表的各个<code>li</code>元素在设为<code>display:inline-block</code>后，效果如下</p>
+<p></p><p data-height="268" data-theme-id="0" data-slug-hash="bNGwXq" data-default-tab="result" data-user="insideyiqi" class="codepen">See the Pen <a href="http://codepen.io/insideyiqi/pen/bNGwXq/" target="_blank" rel="external">inline-block有间隙</a> by YiQi (<a href="http://codepen.io/insideyiqi" target="_blank" rel="external">@insideyiqi</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<p>关于这个间距是为何产生和如何消除的问题，网上已经有很多的前辈给出了很多详细且深入浅出的博文，在此给出有代表性的两篇，自己也是看了这些文章后才对<code>inline-block</code>有了认识。</p>
+<ol>
+<li><a href="http://ued.taobao.org/blog/2012/08/inline-block/" target="_blank" rel="external">inline-block 前世今生</a></li>
+<li><a href="http://www.zhangxinxu.com/wordpress/2012/04/inline-block-space-remove-去除间距/" target="_blank" rel="external">去除inline-block元素间间距的N种方法</a></li>
+</ol>
+<p>关于这个间距，自己的简单总结是</p>
+<ol>
+<li>这不是bug，反而这是浏览器遵循规范导致的结果(是inline元素本身固有特性)。</li>
+<li>这个间距是由于空白符(white space)导致的，要消灭这个间距，就是要消灭这个空白符，所以有了两个方向的解决方案:</li>
+</ol>
+<p>第一是在HTML文档直接消除，比如在上面这个例子中</p>
+<pre><code><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"nav"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>one<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>two<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>three<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+</code></pre><p>空白符就是<code>&lt;/li&gt;</code>和<code>&lt;li&gt;</code>之间的换行符，因此可以这样</p>
+<pre><code><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"nav"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>one<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>two<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>three<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+</code></pre><p>或是</p>
+<pre><code><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"nav"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>one<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span><span class="comment">&lt;!--
+    --&gt;</span><span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>two<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span><span class="comment">&lt;!--
+    --&gt;</span><span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>&gt;</span>three<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+</code></pre><p>等等，虽然通过直接修改HTML文档可以完美地解决空隙的问题，但是这不符合前端样式控制分离的原则，因此，最好的解决方案还是通过CSS来搞定它。</p>
+<p>但是这个问题通过CSS解决却是非常繁杂，当然主要原因还是就在处理各个浏览器的兼容性问题上，上面提到的两篇博文中都介绍了数种方法，就不再赘述，这里就只摘录一个终极全兼容的解决方案吧。</p>
+<pre><code><span class="class">.dib-wrap</span> <span class="rules">{
+<span class="rule"><span class="attribute">font-size</span>:<span class="value"><span class="number">0</span></span></span>;<span class="comment">/* 所有浏览器 */</span>
+<span class="rule">*<span class="attribute">word-spacing</span>:<span class="value">-<span class="number">1px</span></span></span>;<span class="comment">/* IE6、7 */</span>
+<span class="rule">}</span></span>
+<span class="class">.dib-wrap</span> <span class="class">.dib</span><span class="rules">{
+<span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">12px</span></span></span>;
+<span class="rule"><span class="attribute">letter-spacing</span>:<span class="value"> normal</span></span>;
+<span class="rule"><span class="attribute">word-spacing</span>:<span class="value"> normal</span></span>;
+<span class="rule"><span class="attribute">vertical-align</span>:<span class="value">top</span></span>;
+<span class="rule">}</span></span>
+<span class="at_rule">@<span class="keyword">media</span> screen and (-webkit-min-device-pixel-ratio:<span class="number">0</span>)</span>{
+<span class="comment">/* firefox 中 letter-spacing 会导致脱离普通流的元素水平位移 */</span>
+<span class="class">.dib-wrap</span><span class="rules">{
+<span class="rule"><span class="attribute">letter-spacing</span>:<span class="value">-<span class="number">5px</span></span></span>;<span class="comment">/* Safari 等不支持字体大小为 0 的浏览器, N 根据父级字体调节*/</span>
+<span class="rule">}</span></span>
+}
+<span class="class">.dib</span> <span class="rules">{
+<span class="rule"><span class="attribute">display</span>:<span class="value"> inline-block</span></span>;
+<span class="rule">*<span class="attribute">display</span>:<span class="value">inline</span></span>;
+<span class="rule">*<span class="attribute">zoom</span>:<span class="value"><span class="number">1</span></span></span>;
+<span class="rule">}</span></span>
+</code></pre><p>其中，在需要设置<code>inline-block</code>元素的父级元素上定义一个<code>.dib-wrap</code>，该元素自身定义为<code>.dib</code>。</p>
+<p>应用到上面的例子当中，效果如下</p>
+<p></p><p data-height="268" data-theme-id="0" data-slug-hash="bNGBdW" data-default-tab="result" data-user="insideyiqi" class="codepen">See the Pen <a href="http://codepen.io/insideyiqi/pen/bNGBdW/" target="_blank" rel="external">inline-block清除间隙</a> by YiQi (<a href="http://codepen.io/insideyiqi" target="_blank" rel="external">@insideyiqi</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
 
 
-<script type="text/javascript">
-  var duoshuoQuery = { short_name: 'insideyiqi' };
-  (function() {
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';
-    ds.async = true;
-    ds.src = 'http://static.duoshuo.com/embed.js';
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
-  })();
-</script>
+<h2 id="二、图片底部的间距问题">二、图片底部的间距问题</h2>
+<hr>
+<p>这个问题我无意间发现后，也是折腾了很久，在一些前端群里问了人，虽然给出了解决方案，但是产生的原因一直没有了解，直到后来看到知乎上<a href="http://www.zhihu.com/question/21558138" target="_blank" rel="external">这一个提问</a>，终于是搞明白的(题主竟然还是淘宝UED的大神=_=)</p>
+<p>demo如下</p>
+<p></p><p data-height="268" data-theme-id="0" data-slug-hash="gbOxYE" data-default-tab="result" data-user="insideyiqi" class="codepen">See the Pen <a href="http://codepen.io/insideyiqi/pen/gbOxYE/" target="_blank" rel="external">gbOxYE</a> by YiQi (<a href="http://codepen.io/insideyiqi" target="_blank" rel="external">@insideyiqi</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+
+<p>这个间距就像是给<code>img</code>设置了<code>margin-bottom</code>属性，但是要解决这个问题设置<code>* {margin:0}</code>都是无效的，所以发现这个的时候非常郁闷。要了解这个间距，要从<code>vertical-align</code>开始，<code>img</code>属于<code>inline</code>元素，<code>vertical-align</code>的默认值是<code>baseline</code><br><img src="http://repobyyiqi.qiniudn.com/f9935bc7fff4c4ab59d705b2dea20f016f3af73e-dd6f40d865a170e2ae7f239aef8ee3fe24d63174.png" alt="baseline"></p>
+<p><code>inline</code>的图片下面那一道间距正是<code>baseline</code>和<code>bottom</code>之间的这段距离。</p>
+<p>因此，解决的最简单方法就是讲<code>img</code>的<code>vertical-align</code>设为其他的值，如</p>
+<p></p><p data-height="268" data-theme-id="0" data-slug-hash="qEBXEo" data-default-tab="result" data-user="insideyiqi" class="codepen">See the Pen <a href="http://codepen.io/insideyiqi/pen/qEBXEo/" target="_blank" rel="external">img无间隙</a> by YiQi (<a href="http://codepen.io/insideyiqi" target="_blank" rel="external">@insideyiqi</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<p>间距就搞定了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://insideyiqi.github.io/2014/05/05/space-problem/" data-id="ug1sz7stlksf57la" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/30/hello-world/" class="article-date">
+  <time datetime="2014-04-30T05:29:39.000Z" itemprop="datePublished">Apr 30 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/30/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Ok, I will write blogs here from now on.</p>
+<blockquote>
+<p>We judge ourselves by what we feel capable of doing. Others judge us by what we’ve already done.</p>
+<p>我们用“我能做到什么”来判断和定位自己，而别人用“你已经做过什么”来判断和定位你。</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://insideyiqi.github.io/2014/04/30/hello-world/" data-id="7db7nbztjlpj9kj8" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随想/">随想</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Express/">Express</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随想/">随想</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 YiQi<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
 
 
 
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-  (function($){
-    $('.fancybox').fancybox();
-  })(jQuery);
-</script>
+<script src="/js/script.js" type="text/javascript"></script>
 
+
+  </div>
 </body>
 </html>

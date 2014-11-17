@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>body的background-color问题 | Here is YiQi.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在有一次瞎折腾的时候，发现了一个奇怪的问题，在给body标签设置margin值并设置background-color时，background-color竟会扩散到margin部分作用，demo如下：
+See the Pen body有margin bg-c扩散  by YiQi (@insideyiqi) on CodePen.
+
+
+然后当我在给html标签也设置background-color后">
+<meta property="og:type" content="article">
+<meta property="og:title" content="body的background-color问题">
+<meta property="og:url" content="http://insideyiqi.github.io/2014/06/20/body-background-color/">
+<meta property="og:site_name" content="Here is YiQi.">
+<meta property="og:description" content="在有一次瞎折腾的时候，发现了一个奇怪的问题，在给body标签设置margin值并设置background-color时，background-color竟会扩散到margin部分作用，demo如下：
+See the Pen body有margin bg-c扩散  by YiQi (@insideyiqi) on CodePen.
+
+
+然后当我在给html标签也设置background-color后">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="body的background-color问题">
+<meta name="twitter:description" content="在有一次瞎折腾的时候，发现了一个奇怪的问题，在给body标签设置margin值并设置background-color时，background-color竟会扩散到margin部分作用，demo如下：
+See the Pen body有margin bg-c扩散  by YiQi (@insideyiqi) on CodePen.
+
+
+然后当我在给html标签也设置background-color后">
+
+  
+    <link rel="alternative" href="/atom.xml" title="Here is YiQi." type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Here is YiQi.</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Be original.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://insideyiqi.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-body-background-color" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/06/20/body-background-color/" class="article-date">
+  <time datetime="2014-06-20T09:21:19.000Z" itemprop="datePublished">Jun 20 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      body的background-color问题
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在有一次瞎折腾的时候，发现了一个奇怪的问题，在给<code>body</code>标签设置<code>margin</code>值并设置<code>background-color</code>时，<code>background-color</code>竟会扩散到<code>margin</code>部分作用，demo如下：</p>
+<p></p><p data-height="268" data-theme-id="0" data-slug-hash="ZYEoWL" data-default-tab="result" data-user="insideyiqi" class="codepen">See the Pen <a href="http://codepen.io/insideyiqi/pen/ZYEoWL/" target="_blank" rel="external">body有margin bg-c扩散 </a> by YiQi (<a href="http://codepen.io/insideyiqi" target="_blank" rel="external">@insideyiqi</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<p>然后当我在给<code>html</code>标签也设置<code>background-color</code>后，才算恢复了”正常”。</p>
+<p></p><p data-height="256" data-theme-id="0" data-slug-hash="ZYEope" data-default-tab="result" data-user="insideyiqi" class="codepen">See the Pen <a href="http://codepen.io/insideyiqi/pen/ZYEope/" target="_blank" rel="external">body有margin html有bgc</a> by YiQi (<a href="http://codepen.io/insideyiqi" target="_blank" rel="external">@insideyiqi</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<p>这勾起了我的好奇心，google之，可是没有找到一个好的解释，倒是stackoverflow上有一些类似的提问，比如这个<a href="http://stackoverflow.com/questions/10048800/css-background-color-only-inside-the-margin" target="_blank" rel="external">CSS: background-color only inside the margin</a>，回答者的意思基本都是 要避免这个问题 要不就给<code>html</code>加<code>background-color</code> 要不就不要给<code>body</code>设<code>margin</code>，而是加一个<code>div</code>，给这个<code>div</code>加<code>margin</code>。但貌似找不到解释这个现象的回答，没办法，那就自己翻标准去吧。</p>
+<p><code>W3C</code>给<code>body</code>和<code>html</code>标签的定义是这样的</p>
+<p><a href="http://www.w3.org/community/webed/wiki/HTML/Elements/body" target="_blank" rel="external">HTML/Elements/body</a></p>
+<blockquote>
+<p>The &lt;body&gt; element represents the main content of the document.</p>
+</blockquote>
+<p><a href="http://www.w3.org/community/webed/wiki/HTML/Elements/html" target="_blank" rel="external">HTML/Elements/html</a></p>
+<blockquote>
+<p>The &lt;html&gt; element represents the root of HTML and XHTML documents. Any subsequent elements are the children of this root element.</p>
+</blockquote>
+<p>好像有点无关痛痒，但我有了个猜想，会不会是这样，当<code>html</code>标签没有设置什么样式的时候，<code>body</code>就成了整个浏览器窗口的全部，因此<code>body</code>的背景色也就被当做了整个页面的背景色。但这也就是猜想，无从求证，我也就先记下了这个问题，暂且作罢。</p>
+<p>但过了两天在搜索的过程中找到了一篇张大神的<a href="http://www.zhangxinxu.com/wordpress/2009/09/对html与body的一些研究与理解/" target="_blank" rel="external">博文</a>，里面谈到了我的这个问题，然后他做出了一个类似的推论</p>
+<blockquote>
+<p>一般情况下，我们css控制的最高结点就是body，例如设置：body{background:#069;}则浏览器界面就是完全的#068的背景色。这里看上去是body标签下的背景色起作用了，我到不这么认为，这里不是body的background起作用，而是body作为一个根结点起作用了，html标签未被激活，body但当类似于根结点的结点，其background背景色被浏览器俘获，浏览器界面背景色为background的背景色，以上是我的推论，这种推论不是我凭空想象出来的，而是有一定的根据的……</p>
+</blockquote>
+<p>博文里对这个推论做了一些实验佐证，但貌似也没有从标准里找到依据，但是这篇博文还介绍了很多关于<code>html</code>和<code>body</code>的相关事情，开了我的眼界，在此推荐一下。</p>
+<p>相关阅读:<br><a href="http://www.zhangxinxu.com/wordpress/?p=259" target="_blank" rel="external">对html与body的一些研究与理解</a></p>
+<p>P.S. 其实要解决这些疑问，最直接粗暴的方法就是读浏览器渲染引擎的源码，只是。。好吧 C/C++已经许久没接触了 把这件事提上学习日程，webkit源码。。等我吧</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://insideyiqi.github.io/2014/06/20/body-background-color/" data-id="2wnfd3bn9fe7ai51" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2014/06/11/dive-into-express-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">解读express 4.x源码(1)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Express/">Express</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随想/">随想</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 YiQi<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+
+  </div>
+</body>
+</html>

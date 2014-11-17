@@ -2,18 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://insideyiqi.github.io/2014/06/20/body-background-color/</loc>
+    <lastmod>2014-11-17T17:11:31.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://insideyiqi.github.io/2014/05/25/fe-performance/</loc>
+    <lastmod>2014-11-17T15:06:25.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://insideyiqi.github.io/2014/05/05/space-problem/</loc>
+    <lastmod>2014-11-17T15:03:18.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://insideyiqi.github.io/2014/04/30/hello-world/</loc>
+    <lastmod>2014-11-17T15:02:15.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://insideyiqi.github.io/2014/06/11/dive-into-express-1/</loc>
-    <lastmod>2014-06-13T12:54:11.000Z</lastmod>
+    <lastmod>2014-11-17T14:34:12.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://insideyiqi.github.io/about/index.html</loc>
-    <lastmod>2014-05-25T15:22:05.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://insideyiqi.github.io/2014/05/19/hello-world/</loc>
-    <lastmod>2014-05-19T16:51:52.000Z</lastmod>
+    <loc>http://insideyiqi.github.io/aboutme/index.html</loc>
+    <lastmod>2014-11-17T14:01:52.000Z</lastmod>
   </url>
   
 </urlset>

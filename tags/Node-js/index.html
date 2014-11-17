@@ -3,20 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>解读express 4.x源码(1) | Here is YiQi.</title>
+  <title>Tag: Node.js | Here is YiQi.</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="这两天仔细看了看express的源码，对其的整个实现有了较清晰的认识，所以想总结一下写出来，如果有什么不对的地方，望指出。
-这是第一篇，首先介绍一个最简单的express应用运行过程，初步分析了其在源码中的具体实现，还没有涉及到一些比较重要的内容比如路由组件的实现方式，中间件的触发流程等。在后续的总结中，我会继续分析，并准备将一些值得分析的public api逐一解读，也会涉及一些private">
-<meta property="og:type" content="article">
-<meta property="og:title" content="解读express 4.x源码(1)">
-<meta property="og:url" content="http://insideyiqi.github.io/2014/06/11/dive-into-express-1/">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Here is YiQi.">
+<meta property="og:url" content="http://insideyiqi.github.io/tags/Node-js/">
 <meta property="og:site_name" content="Here is YiQi.">
-<meta property="og:description" content="这两天仔细看了看express的源码，对其的整个实现有了较清晰的认识，所以想总结一下写出来，如果有什么不对的地方，望指出。
-这是第一篇，首先介绍一个最简单的express应用运行过程，初步分析了其在源码中的具体实现，还没有涉及到一些比较重要的内容比如路由组件的实现方式，中间件的触发流程等。在后续的总结中，我会继续分析，并准备将一些值得分析的public api逐一解读，也会涉及一些private">
+<meta property="og:description">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="解读express 4.x源码(1)">
-<meta name="twitter:description" content="这两天仔细看了看express的源码，对其的整个实现有了较清晰的认识，所以想总结一下写出来，如果有什么不对的地方，望指出。
-这是第一篇，首先介绍一个最简单的express应用运行过程，初步分析了其在源码中的具体实现，还没有涉及到一些比较重要的内容比如路由组件的实现方式，中间件的触发流程等。在后续的总结中，我会继续分析，并准备将一些值得分析的public api逐一解读，也会涉及一些private">
+<meta name="twitter:title" content="Here is YiQi.">
+<meta name="twitter:description">
 
   
     <link rel="alternative" href="/atom.xml" title="Here is YiQi." type="application/atom+xml">
@@ -68,7 +65,9 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-dive-into-express-1" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main">
+  
+    <article id="post-dive-into-express-1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/06/11/dive-into-express-1/" class="article-date">
   <time datetime="2014-06-11T14:21:11.000Z" itemprop="datePublished">Jun 11 2014</time>
@@ -81,8 +80,8 @@
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      解读express 4.x源码(1)
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/06/11/dive-into-express-1/">解读express 4.x源码(1)</a>
     </h1>
   
 
@@ -174,29 +173,11 @@
     </footer>
   </div>
   
-    
-<nav id="article-nav">
-  
-    <a href="/2014/06/20/body-background-color/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          body的background-color问题
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2014/05/25/fe-performance/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">前端基本性能优化tips</div>
-    </a>
-  
-</nav>
-
-  
 </article>
 
+
+  
+  
 </section>
         
           <aside id="sidebar">
