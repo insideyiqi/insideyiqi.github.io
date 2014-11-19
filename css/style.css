@@ -349,11 +349,16 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: url("images/banner.jpg") center #000;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
   z-index: -1;
+}
+.colorful {
+  background: -webkit-linear-gradient(45deg, RGBA(35, 205, 108, 1) 0%, RGBA(35, 205, 108, 0) 70%), -webkit-linear-gradient(315deg, RGBA(24, 34, 222, 1) 10%, RGBA(24, 34, 222, 0) 80%), -webkit-linear-gradient(225deg, RGBA(20, 83, 212, 1) 10%, RGBA(20, 83, 212, 0) 80%), -webkit-linear-gradient(135deg, RGBA(138, 35, 224, 1) 100%, RGBA(138, 35, 224, 0) 70%);
+  background: -moz-linear-gradient(45deg, RGBA(35, 205, 108, 1) 0%, RGBA(35, 205, 108, 0) 70%), -moz-linear-gradient(315deg, RGBA(24, 34, 222, 1) 10%, RGBA(24, 34, 222, 0) 80%), -moz-linear-gradient(225deg, RGBA(20, 83, 212, 1) 10%, RGBA(20, 83, 212, 0) 80%), -moz-linear-gradient(135deg, RGBA(138, 35, 224, 1) 100%, RGBA(138, 35, 224, 0) 70%);
+  background: -ms-linear-gradient(45deg, RGBA(35, 205, 108, 1) 0%, RGBA(35, 205, 108, 0) 70%), -ms-linear-gradient(315deg, RGBA(24, 34, 222, 1) 10%, RGBA(24, 34, 222, 0) 80%), -ms-linear-gradient(225deg, RGBA(20, 83, 212, 1) 10%, RGBA(20, 83, 212, 0) 80%), -ms-linear-gradient(135deg, RGBA(138, 35, 224, 1) 100%, RGBA(138, 35, 224, 0) 70%);
+  background: linear-gradient(45deg, RGBA(35, 205, 108, 1) 0%, RGBA(35, 205, 108, 0) 70%), linear-gradient(135deg, RGBA(24, 34, 222, 1) 10%, RGBA(24, 34, 222, 0) 80%), linear-gradient(225deg, RGBA(20, 83, 212, 1) 10%, RGBA(20, 83, 212, 0) 80%), linear-gradient(315deg, RGBA(138, 35, 224, 1) 100%, RGBA(138, 35, 224, 0) 70%);
 }
 #header-title {
   text-align: center;
