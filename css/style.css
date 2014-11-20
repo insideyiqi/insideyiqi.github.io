@@ -561,6 +561,8 @@ a.article-title:hover {
 .article-entry {
   color: #555;
   padding: 0 20px;
+  padding: 0 15px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .article-entry:before,
 .article-entry:after {
@@ -641,27 +643,24 @@ a.article-title:hover {
   font-size: 14px;
   margin: 1.6em 0;
 }
-.article-entry padding: 0 15px {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-.article-entry padding: 0 15px cite:before {
+.article-entry cite:before {
   content: "—";
   padding: 0 0.5em;
 }
-.article-entry .pullquote {
+.pullquote {
   text-align: left;
   width: 45%;
   margin: 0;
 }
-.article-entry .pullquote.left {
+.pullquote.left {
   margin-left: 0.5em;
   margin-right: 1em;
 }
-.article-entry .pullquote.right {
+.pullquote.right {
   margin-right: 0.5em;
   margin-left: 1em;
 }
-.article-entry .caption {
+.caption {
   color: #999;
   display: block;
   font-size: 0.9em;
@@ -669,15 +668,15 @@ a.article-title:hover {
   position: relative;
   text-align: center;
 }
-.article-entry .video-container {
+.video-container {
   position: relative;
   padding-top: 56.25%;
   height: 0;
   overflow: hidden;
 }
-.article-entry .video-container iframe,
-.article-entry .video-container object,
-.article-entry .video-container embed {
+.video-container iframe,
+.video-container object,
+.video-container embed {
   position: absolute;
   top: 0;
   left: 0;
@@ -1117,6 +1116,7 @@ a.article-title:hover {
   border-color: #ddd;
   border-width: 1px 0;
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
   color: #ccc;
   line-height: 22.400000000000002px;
 }
