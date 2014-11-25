@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>aboutme | Here is YiQi.</title>
+  <title>Archives: 2014/7 | Here is YiQi.</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="building">
+  <meta name="description">
 <meta property="og:type" content="website">
-<meta property="og:title" content="aboutme">
-<meta property="og:url" content="http://insideyiqi.github.io/aboutme/index.html">
+<meta property="og:title" content="Here is YiQi.">
+<meta property="og:url" content="http://insideyiqi.github.io/archives/2014/07/">
 <meta property="og:site_name" content="Here is YiQi.">
-<meta property="og:description" content="building">
+<meta property="og:description">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="aboutme">
-<meta name="twitter:description" content="building">
+<meta name="twitter:title" content="Here is YiQi.">
+<meta name="twitter:description">
 
   
     <link rel="alternative" href="/atom.xml" title="Here is YiQi." type="application/atom+xml">
@@ -65,10 +65,12 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+        <section id="main">
+  
+    <article id="post-one-centering-solution" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/aboutme/index.html" class="article-date">
-  <time datetime="2014-11-17T14:01:25.000Z" itemprop="datePublished">Nov 17 2014</time>
+    <a href="/2014/07/03/one-centering-solution/" class="article-date">
+  <time datetime="2014-07-03T12:20:01.000Z" itemprop="datePublished">Jul 3 2014</time>
 </a>
     
   </div>
@@ -78,8 +80,8 @@
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      aboutme
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/07/03/one-centering-solution/">一个垂直居中的方法</a>
     </h1>
   
 
@@ -87,21 +89,36 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>building</p>
+        <p>这几天看到一些关于垂直居中实现的文章，了解了好多实现垂直居中的方法，在这里把我一个比较喜欢的一个方法记录一下。</p>
+<p>根据百度流量研究院的<a href="http://tongji.baidu.com/data/browser/" target="_blank" rel="external">统计</a>，目前(2014年)浏览器的市场份额中<code>IE6+7</code>这两个东西之和已经在10%以下了，而且下降的速度还是挺乐观的，所以，关于垂直居中的方法选择，我的关注点已经不是能否照顾到这两个与众不同的浏览器了，而更关注与对HTML结构的的要求，如是否需要增加额外标签以及HTML是否语义化(semantic)。</p>
+<p>因此，不考虑兼容IE6+7，对于大小不固定的多行文字及图片的水平垂直居中，我看到的这些方法中最好的应该是这个:</p>
+<p></p><p data-height="268" data-theme-id="0" data-slug-hash="qEdmWy" data-default-tab="result" data-user="insideyiqi" class="codepen">See the Pen <a href="http://codepen.io/insideyiqi/pen/qEdmWy/" target="_blank" rel="external">Centering in the Unknown</a> by YiQi (<a href="http://codepen.io/insideyiqi" target="_blank" rel="external">@insideyiqi</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<p>这个方法利用CSS伪元素创建一个”ghost element”，并设置他的高度为100%，然后把它和要垂直居中的内容块都<code>display:inline-block</code>使两者并排及<code>vertical-align:middle</code>，内容块就在垂直居中了。水平居中只需要在外层<code>div</code>设置<code>text-align:center</code>即可。</p>
+<p>但这样有一个小问题，仅仅这样不是完美居中的，因为两个<code>inline-block</code>元素之间会有空隙，这在我之前写的<a href="http://insideyiqi.github.io/2014/05/05/space-problem/" target="_blank" rel="external">各种「间距」问题的总结</a>中有提到过，当时给的终极解决方法是支持IE6-7的，但是这里不需要，因为他们不支持伪元素，所以这里就没必要用那个冗长的CSS，只需要在外层<code>div</code>设置<code>font-size:0</code>然后在内容块设置回来就可以了。</p>
+<p>参考文章:</p>
+<p><a href="http://css-tricks.com/centering-in-the-unknown/" target="_blank" rel="external">Centering in the Unknown</a></p>
+<p>关于垂直居中的一些文章:</p>
+<p><a href="http://www.w3cplus.com/css/vertically-center-content-with-css" target="_blank" rel="external">CSS制作水平垂直居中对齐</a></p>
+<p><a href="http://www.zhangxinxu.com/wordpress/2009/08/%E5%A4%A7%E5%B0%8F%E4%B8%8D%E5%9B%BA%E5%AE%9A%E7%9A%84%E5%9B%BE%E7%89%87%E3%80%81%E5%A4%9A%E8%A1%8C%E6%96%87%E5%AD%97%E7%9A%84%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD/" target="_blank" rel="external">大小不固定的图片、多行文字的水平垂直居中</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://insideyiqi.github.io/aboutme/index.html" data-id="9ua2vlb56v8ym2yl" class="article-share-link">Share</a>
+      <a data-url="http://insideyiqi.github.io/2014/07/03/one-centering-solution/" data-id="8fltk1x0d5f0cw1b" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+
     </footer>
   </div>
   
-    
-  
 </article>
 
+
+  
+  
 </section>
         
           <aside id="sidebar">
