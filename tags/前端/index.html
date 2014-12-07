@@ -67,72 +67,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-body-background-color" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/06/20/body-background-color/" class="article-date">
-  <time datetime="2014-06-20T09:21:19.000Z" itemprop="datePublished">Jun 20 2014</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/06/20/body-background-color/">body的background-color问题</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在有一次瞎折腾的时候，发现了一个奇怪的问题，在给<code>body</code>标签设置<code>margin</code>值并设置<code>background-color</code>时，<code>background-color</code>竟会扩散到<code>margin</code>部分作用，demo如下：</p>
-<p></p><p data-height="268" data-theme-id="0" data-slug-hash="ZYEoWL" data-default-tab="result" data-user="insideyiqi" class="codepen">See the Pen <a href="http://codepen.io/insideyiqi/pen/ZYEoWL/" target="_blank" rel="external">body有margin bg-c扩散 </a> by YiQi (<a href="http://codepen.io/insideyiqi" target="_blank" rel="external">@insideyiqi</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
-<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
-
-<p>然后当我在给<code>html</code>标签也设置<code>background-color</code>后，才算恢复了”正常”。</p>
-<p></p><p data-height="256" data-theme-id="0" data-slug-hash="ZYEope" data-default-tab="result" data-user="insideyiqi" class="codepen">See the Pen <a href="http://codepen.io/insideyiqi/pen/ZYEope/" target="_blank" rel="external">body有margin html有bgc</a> by YiQi (<a href="http://codepen.io/insideyiqi" target="_blank" rel="external">@insideyiqi</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
-<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
-
-<p>这勾起了我的好奇心，google之，可是没有找到一个好的解释，倒是stackoverflow上有一些类似的提问，比如这个<a href="http://stackoverflow.com/questions/10048800/css-background-color-only-inside-the-margin" target="_blank" rel="external">CSS: background-color only inside the margin</a>，回答者的意思基本都是 要避免这个问题 要不就给<code>html</code>加<code>background-color</code> 要不就不要给<code>body</code>设<code>margin</code>，而是加一个<code>div</code>，给这个<code>div</code>加<code>margin</code>。但貌似找不到解释这个现象的回答，没办法，那就自己翻标准去吧。</p>
-<p><code>W3C</code>给<code>body</code>和<code>html</code>标签的定义是这样的</p>
-<p><a href="http://www.w3.org/community/webed/wiki/HTML/Elements/body" target="_blank" rel="external">HTML/Elements/body</a></p>
-<blockquote>
-<p>The &lt;body&gt; element represents the main content of the document.</p>
-</blockquote>
-<p><a href="http://www.w3.org/community/webed/wiki/HTML/Elements/html" target="_blank" rel="external">HTML/Elements/html</a></p>
-<blockquote>
-<p>The &lt;html&gt; element represents the root of HTML and XHTML documents. Any subsequent elements are the children of this root element.</p>
-</blockquote>
-<p>好像有点无关痛痒，但我有了个猜想，会不会是这样，当<code>html</code>标签没有设置什么样式的时候，<code>body</code>就成了整个浏览器窗口的全部，因此<code>body</code>的背景色也就被当做了整个页面的背景色。但这也就是猜想，无从求证，我也就先记下了这个问题，暂且作罢。</p>
-<p>但过了两天在搜索的过程中找到了一篇张大神的<a href="http://www.zhangxinxu.com/wordpress/2009/09/对html与body的一些研究与理解/" target="_blank" rel="external">博文</a>，里面谈到了我的这个问题，然后他做出了一个类似的推论</p>
-<blockquote>
-<p>一般情况下，我们css控制的最高结点就是body，例如设置：body{background:#069;}则浏览器界面就是完全的#068的背景色。这里看上去是body标签下的背景色起作用了，我到不这么认为，这里不是body的background起作用，而是body作为一个根结点起作用了，html标签未被激活，body但当类似于根结点的结点，其background背景色被浏览器俘获，浏览器界面背景色为background的背景色，以上是我的推论，这种推论不是我凭空想象出来的，而是有一定的根据的……</p>
-</blockquote>
-<p>博文里对这个推论做了一些实验佐证，但貌似也没有从标准里找到依据，但是这篇博文还介绍了很多关于<code>html</code>和<code>body</code>的相关事情，开了我的眼界，在此推荐一下。</p>
-<p>相关阅读:<br><a href="http://www.zhangxinxu.com/wordpress/?p=259" target="_blank" rel="external">对html与body的一些研究与理解</a></p>
-<p>P.S. 其实要解决这些疑问，最直接粗暴的方法就是读浏览器渲染引擎的源码，只是。。好吧 C/C++已经许久没接触了 把这件事提上学习日程，webkit源码。。等我吧</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://insideyiqi.github.io/2014/06/20/body-background-color/" data-id="5q9p0q2rco6rh8p7" class="article-share-link">Share</a>
-      
-        <a href="http://insideyiqi.github.io/2014/06/20/body-background-color/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-fe-performance" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/05/25/fe-performance/" class="article-date">
@@ -210,7 +144,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/移动端/">移动端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随想/">随想</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/移动端/">移动端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随想/">随想</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
