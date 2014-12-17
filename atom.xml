@@ -4,7 +4,7 @@
   <subtitle><![CDATA[空.濛.]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://insideyiqi.github.io/"/>
-  <updated>2014-12-10T15:17:30.704Z</updated>
+  <updated>2014-12-17T16:01:44.802Z</updated>
   <id>http://insideyiqi.github.io/</id>
   
   <author>
@@ -13,6 +13,41 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[requestAnimationFrame下控制动画时间]]></title>
+    <link href="http://insideyiqi.github.io/2014/12/17/rAF-duration-time/"/>
+    <id>http://insideyiqi.github.io/2014/12/17/rAF-duration-time/</id>
+    <published>2014-12-17T14:41:19.000Z</published>
+    <updated>2014-12-17T15:55:53.000Z</updated>
+    <content type="html"><![CDATA[<p>在使用<code>CSS3</code>的<code>tranistion</code>来控制动画完成的时间非常容易，比如<code>transition: all 1s;</code>。但很多动画并不能简单地通过<code>CSS3</code>来完成，在现代浏览器的时代，<code>requestAnimationFrame</code>成为了制作动画的一个利器。</p>
+<p>但在使用<code>requestAnimationFrame</code>来做动画时，动画的FPS是由浏览器和硬件设备(显示器)控制的，并不能保证在所有场景下都是等于<code>60FPS</code>，因而要想控制通过<code>requestAnimationFrame</code>实现的动画的帧频就变得比较困难。</p>
+<p>要想在一定程度上控制<code>requestAnimationFrame</code>的FPS也是可以的，比如这样</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">var fps = <span class="number">10</span>;</div><div class="line">var now;</div><div class="line">var then = Date.now();</div><div class="line">var interval = <span class="number">1000</span>/fps;</div><div class="line">var delta;</div><div class="line"></div><div class="line"><span class="keyword">function</span> tick() {</div><div class="line">　　requestAnimationFrame(tick);</div><div class="line">　　now = Date.now();</div><div class="line">　　delta = now - then;</div><div class="line">　　<span class="keyword">if</span> (delta &gt; interval) {</div><div class="line">　　　　// 这里不能简单then=now，否则会出现细微时间差问题。例如fps=<span class="number">10</span>，每帧100ms，而现在每16ms（60fps）执行一次draw。<span class="number">16</span>*<span class="number">7</span>=<span class="number">112</span>&gt;<span class="number">100</span>，需要<span class="number">7</span>次才实际绘制一次。这个情况下，实际<span class="number">10</span>帧需要<span class="number">112</span>*<span class="number">10</span>=1120ms&gt;1000ms才绘制完成。</div><div class="line">　　　　then = now - (delta % interval);</div><div class="line">　　　　draw(); // <span class="keyword">...</span> Code <span class="keyword">for</span> Drawing the Frame <span class="keyword">...</span></div><div class="line">　　}</div><div class="line">}</div><div class="line">tick();</div></pre></td></tr></table></figure>
+
+<p>实例如下，</p>
+<p></p><p data-height="268" data-theme-id="0" data-slug-hash="ZYOpBq" data-default-tab="result" data-user="insideyiqi" class="codepen">See the Pen <a href="http://codepen.io/insideyiqi/pen/ZYOpBq/" target="_blank" rel="external">ZYOpBq</a> by YiQi (<a href="http://codepen.io/insideyiqi" target="_blank" rel="external">@insideyiqi</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<p>当然这里控制FPS不能超过浏览器限制的最大帧频，只能减小，不能增大，而且，当减小FPS过多(比如上面的例子)，就完全不是一个流畅的动画了。因此，这个方法其实对控制动画的完成时间并没有什么实际的意义。</p>
+<p>所以，要想控制动画的完成时间还是要从调整绘制动画函数着手，比如控制步长，但是通过计算动画步长还是比较复杂的，请教了高手后得到了这么一个例子。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.querySelector(<span class="string">"div"</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> y = <span class="number">0</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getStep</span><span class="params">(totalstep, duration, t, dt, timing)</span> </span>{</div><div class="line">    <span class="keyword">return</span> totalstep / duration * timing(t / duration) * dt;</div><div class="line">}</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">movement</span><span class="params">(t, dt)</span> </span>{</div><div class="line">    <span class="keyword">var</span> to = <span class="number">1000</span>, </div><div class="line">        duration = <span class="number">707</span>; <span class="comment">// milliseconds</span></div><div class="line">    y += getStep(to, duration, t, dt, <span class="function"><span class="keyword">function</span><span class="params">(t)</span> </span>{ <span class="keyword">return</span> <span class="number">2</span> * t });</div><div class="line">    y = <span class="built_in">Math</span>.min(y, to);</div><div class="line">    div.style.transform = <span class="string">"translate3d(0, "</span> + y + <span class="string">"px, 0)"</span>;</div><div class="line">    <span class="built_in">console</span>.log(t);</div><div class="line">    <span class="keyword">return</span> (y) &lt; to;</div><div class="line">}</div><div class="line"></div><div class="line">requestAnimationFrame(<span class="function"><span class="keyword">function</span><span class="params">(t)</span> </span>{</div><div class="line">    <span class="keyword">var</span> t0 = t, t1 = <span class="number">0</span>;</div><div class="line">    requestAnimationFrame(<span class="function"><span class="keyword">function</span> <span class="title">frame</span><span class="params">(t)</span> </span>{</div><div class="line">        movement(t - t0, -t1 + (t1 = t)) && requestAnimationFrame(frame);</div><div class="line">    });</div><div class="line">});</div></pre></td></tr></table></figure>
+
+<p>这段代码着实把我看晕了，而且其中的<code>timing</code>函数是可以自定义的，不过需要满足一个严格的要求，<code>Integral(0, 1, timing(t)) = 1</code>，也就是<code>0-1</code>上的积分为1。。。</p>
+<p>实例如下，</p>
+<p></p><p data-height="268" data-theme-id="0" data-slug-hash="myEOVp" data-default-tab="result" data-user="insideyiqi" class="codepen">See the Pen <a href="http://codepen.io/insideyiqi/pen/myEOVp/" target="_blank" rel="external">myEOVp</a> by YiQi (<a href="http://codepen.io/insideyiqi" target="_blank" rel="external">@insideyiqi</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<p>其实另外，也可以借助一些js的动画库来控制动画完成的时间，比如<a href="https://github.com/julianshapiro/velocity" target="_blank" rel="external">velocity</a>。</p>
+<p>参考链接</p>
+<p><a href="http://www.cnblogs.com/kenkofox/p/3849067.html" target="_blank" rel="external">JS：指定FPS帧频，requestAnimationFrame播放动画</a></p>
+<p><a href="http://www.zhangxinxu.com/wordpress/2013/09/css3-animation-requestanimationframe-tween-%E5%8A%A8%E7%94%BB%E7%AE%97%E6%B3%95/" target="_blank" rel="external">CSS3动画那么强，requestAnimationFrame还有毛线用？</a></p>
+]]></content>
+    
+    
+      <category term="JavaScript" scheme="http://insideyiqi.github.io/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[iOS Safari中的input]]></title>
@@ -216,7 +251,7 @@
     <link href="http://insideyiqi.github.io/2014/05/25/fe-performance/"/>
     <id>http://insideyiqi.github.io/2014/05/25/fe-performance/</id>
     <published>2014-05-25T15:19:11.000Z</published>
-    <updated>2014-11-17T17:59:47.000Z</updated>
+    <updated>2014-12-17T15:57:37.000Z</updated>
     <content type="html"><![CDATA[<p>这几天在关注性能优化相关的主题，下面是总结的一些最基本的要点。</p>
 <h4 id="1-_顶部的Styles,_底部的scripts">1. 顶部的Styles, 底部的scripts</h4>
 <h4 id="2-_尽可能地减少HTTP请求">2. 尽可能地减少HTTP请求</h4>
@@ -246,7 +281,7 @@
 ]]></content>
     
     
-      <category term="前端" scheme="http://insideyiqi.github.io/tags/%E5%89%8D%E7%AB%AF/"/>
+      <category term="前端others" scheme="http://insideyiqi.github.io/tags/%E5%89%8D%E7%AB%AFothers/"/>
     
   </entry>
   
